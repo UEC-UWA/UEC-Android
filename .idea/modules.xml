@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/UEC.iml" filepath="$PROJECT_DIR$/UEC.iml" />
+      <module fileurl="file://$PROJECT_DIR$/UEC-Android.iml" filepath="$PROJECT_DIR$/UEC-Android.iml" />
+      <module fileurl="file://$PROJECT_DIR$/UEC/UEC-UEC.iml" filepath="$PROJECT_DIR$/UEC/UEC-UEC.iml" />
+    </modules>
+  </component>
+</project>
+
