@@ -1,25 +1,23 @@
 package com.appulse.uec;
 
 import android.app.Activity;
-import android.support.v7.app.ActionBarActivity;
-import android.support.v7.app.ActionBar;
+import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
-import android.content.Context;
-import android.os.Build;
-import android.os.Bundle;
-import android.view.Gravity;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBar;
+import android.support.v7.app.ActionBarActivity;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.support.v4.widget.DrawerLayout;
-import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
 public class MainActivity extends ActionBarActivity
-        implements NavigationDrawerFragment.NavigationDrawerCallbacks {
+        implements NavigationDrawerFragment.NavigationDrawerCallbacks, FragNewsList.onNewsItemSelectedListener,
+FragNewsListDetail.onNewsDetailSelectedListener{
 
     /**
      * Fragment managing the behaviors, interactions and presentation of the navigation drawer.
@@ -44,15 +42,26 @@ public class MainActivity extends ActionBarActivity
         mNavigationDrawerFragment.setUp(
                 R.id.navigation_drawer,
                 (DrawerLayout) findViewById(R.id.drawer_layout));
+        FragNewsList.setOnMySignalListener(this);
+        FragNewsListDetail.setOnMySignalListener(this);
+
+        if (mNavigationDrawerFragment != null) {
+            //mNavigationDrawerFragment.showIndicator(false);
+
+        }
+
     }
+
 
     @Override
     public void onNavigationDrawerItemSelected(int position) {
         // update the main content by replacing fragments
         FragmentManager fragmentManager = getSupportFragmentManager();
         fragmentManager.beginTransaction()
-                .replace(R.id.container, PlaceholderFragment.newInstance(position + 1))
+                .replace(R.id.container, new FragNewsList())
                 .commit();
+
+        //while(getSupportFragmentManager().popBackStackImmediate()){}
     }
 
     public void onSectionAttached(int number) {
@@ -99,8 +108,75 @@ public class MainActivity extends ActionBarActivity
         if (id == R.id.action_settings) {
             return true;
         }
+        if (id == android.R.id.home) {
+            FragmentManager fragmentManager = getSupportFragmentManager();
+            //fragmentManager.beginTransaction()
+                   // .replace(R.id.container, new FragNewsList()).commit();
+
+           // getActionBar().setDisplayHomeAsUpEnabled(false);
+            if (fragmentManager.getBackStackEntryCount() == 0) {
+                return super.onOptionsItemSelected(item);
+            }
+
+            fragmentManager.popBackStack();
+
+            if (fragmentManager.getBackStackEntryCount() == 1 && mNavigationDrawerFragment != null) {
+                 mNavigationDrawerFragment.showIndicator(true);
+
+
+            }
+            //getSupportActionBar().setDisplayHomeAsUpEnabled(false);
+            return true;
+
+
+        }
+
+      //  return true;
+
         return super.onOptionsItemSelected(item);
     }
+
+
+    @Override
+    public void onNewsItemSelected(int value) {
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        fragmentManager.beginTransaction()
+                .replace(R.id.container, new FragNewsListDetail()).addToBackStack(null).commit();
+
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        mNavigationDrawerFragment.showIndicator(false);
+    }
+
+    @Override
+    public void onBackPressed() {
+
+        /**
+         *  Propagate back press txo the fragments first
+         */
+       // FragmentManager fragmentManager = getSupportFragmentManager();
+        //fragmentManager.popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
+
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        fragmentManager.beginTransaction()
+                .replace(R.id.container, new FragNewsList()).addToBackStack(null).commit();
+
+        Log.e("MainActivity","Back Press~!!!!!!!!!!");
+        super.onBackPressed();
+
+    }
+
+    @Override
+    public void onNewsDetailSelected(int value) {
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        fragmentManager.beginTransaction()
+                .replace(R.id.container, new FragNewsListDetail()).addToBackStack(null).commit();
+
+        //getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        //mNavigationDrawerFragment.showIndicator(false);
+    }
+
 
     /**
      * A placeholder fragment containing a simple view.

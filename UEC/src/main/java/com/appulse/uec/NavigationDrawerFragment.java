@@ -110,6 +110,19 @@ public class NavigationDrawerFragment extends Fragment {
         return mDrawerListView;
     }
 
+    public void showIndicator(boolean visible) {
+        if (mDrawerToggle != null) {
+        mDrawerToggle.setDrawerIndicatorEnabled(visible);
+
+            if (!visible) {
+                mDrawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
+            } else {
+                mDrawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED);
+             //   mDrawerLayout.closeDrawer(DrawerLayout.TEXT_ALIGNMENT_VIEW_START);
+                mDrawerLayout.closeDrawers();
+            }
+        }
+    }
     public boolean isDrawerOpen() {
         return mDrawerLayout != null && mDrawerLayout.isDrawerOpen(mFragmentContainerView);
     }
@@ -123,7 +136,7 @@ public class NavigationDrawerFragment extends Fragment {
     public void setUp(int fragmentId, DrawerLayout drawerLayout) {
         mFragmentContainerView = getActivity().findViewById(fragmentId);
         mDrawerLayout = drawerLayout;
-
+       // mDrawerLayout.setFocusableInTouchMode(false);
         // set a custom shadow that overlays the main content when the drawer opens
         mDrawerLayout.setDrawerShadow(R.drawable.drawer_shadow, GravityCompat.START);
         // set up the drawer's list view with items and click listener
