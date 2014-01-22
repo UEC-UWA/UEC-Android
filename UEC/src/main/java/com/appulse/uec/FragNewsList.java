@@ -16,6 +16,7 @@ public class FragNewsList extends Fragment {
 
     private static onNewsItemSelectedListener listener;
 
+    public String title;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -24,6 +25,7 @@ public class FragNewsList extends Fragment {
                 "Blackberry", "WebOS", "Ubuntu", "Windows7", "Max OS X",
                 "Linux", "OS/2" };
 
+        title = "News";
         View view = inflater.inflate(R.layout.frag_news_list, container, false);
 
 
@@ -49,6 +51,7 @@ public class FragNewsList extends Fragment {
         listener.onNewsItemSelected(position);
        }
     }
+
     public static void setOnMySignalListener(onNewsItemSelectedListener listener) {
          FragNewsList.listener = listener;
      }

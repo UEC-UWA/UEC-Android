@@ -1,0 +1,37 @@
+<RelativeLayout
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Welcome to the ios UEC App"
+        android:id="@+id/textView"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginLeft="22dp"
+        android:layout_marginTop="26dp"
+        android:textStyle="bold"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text='This is the iOS 7 alpha release of the UEC app. The data which you will see is all cached. this means that it is not pulling from the server (aka the website). We need to get Cam to work on the server, probably after exams are over. It should not be too hard, maybe a day of collaborating and agreeing on the structure of data being sent over.  Obviously this is not the final version, and quite a few things will change depending on your feedback. You can send me some feedback by going to the "About" tab and tapping "About The App". Keep it constructive please.  Changes on my roadmap currently are: 	- Chinese, French localization; (Any other languages you are willing to translate) 	- iPad support done bitches  Love Jad'
+        android:id="@+id/textView2"
+        android:layout_below="@+id/textView"
+        android:layout_alignLeft="@+id/textView"
+        android:layout_alignStart="@+id/textView"
+        android:layout_marginTop="27dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Build: 1"
+        android:id="@+id/textView3"
+        android:layout_alignParentBottom="true"
+        android:layout_alignLeft="@+id/textView2"
+        android:layout_alignStart="@+id/textView2"
+        android:layout_marginBottom="22dp" />
+</RelativeLayout>

@@ -56,18 +56,29 @@ FragNewsListDetail.onNewsDetailSelectedListener{
     @Override
     public void onNavigationDrawerItemSelected(int position) {
         // update the main content by replacing fragments
+        Fragment fragment = getFragment(position);
         FragmentManager fragmentManager = getSupportFragmentManager();
         fragmentManager.beginTransaction()
-                .replace(R.id.container, new FragNewsList())
+                .replace(R.id.container, fragment)
                 .commit();
-
+        setTitle(getTitle(position));
+      //  getSupportActionBar().setTitle(getTitle(position));
         //while(getSupportFragmentManager().popBackStackImmediate()){}
     }
 
+    public String getTitle(int position) {
+        return "News";
+    }
+    public Fragment getFragment(int position) {
+        return new FragNewsList();
+    }
     public void onSectionAttached(int number) {
+
+
+
         switch (number) {
             case 1:
-                mTitle = getString(R.string.title_section1);
+                //mTitle = "News";
                 break;
             case 2:
                 mTitle = getString(R.string.title_section2);
@@ -122,13 +133,9 @@ FragNewsListDetail.onNewsDetailSelectedListener{
 
             if (fragmentManager.getBackStackEntryCount() == 1 && mNavigationDrawerFragment != null) {
                  mNavigationDrawerFragment.showIndicator(true);
-
-
             }
             //getSupportActionBar().setDisplayHomeAsUpEnabled(false);
             return true;
-
-
         }
 
       //  return true;

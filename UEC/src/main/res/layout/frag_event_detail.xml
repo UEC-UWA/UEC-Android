@@ -1,0 +1,127 @@
+<RelativeLayout
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <ImageView
+        android:id="@+id/eventImage"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginLeft="5dp"
+        android:layout_marginTop="5dp" />
+
+    <TextView
+        android:id="@+id/eventName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textStyle="bold"
+        android:text="Test Event"
+        android:layout_marginTop="15dp"
+        android:layout_toRightOf="@+id/eventImage"
+        android:layout_marginLeft="5dp" />
+
+    <TextView
+        android:id="@+id/eventSub"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingTop="5dp"
+        android:text="Test Event"
+        android:layout_below="@+id/eventName"
+        android:layout_toRightOf="@+id/eventImage"
+        android:layout_marginLeft="5dp"
+        />
+
+    <TextView
+        android:id="@+id/eventAddress"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="5 Holmes Street Shelly"
+        android:layout_toRightOf="@+id/eventImage"
+        android:layout_below="@+id/eventSub"
+        android:layout_marginLeft="5dp" />
+
+    <TextView
+        android:id="@+id/labelStart"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Start"
+        android:textStyle="bold"
+        android:layout_below="@+id/eventImage"
+        android:layout_marginTop="24dp"
+        android:layout_marginLeft="5dp"/>
+
+    <TextView
+        android:id="@+id/labelEnd"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="End"
+        android:textStyle="bold"
+        android:layout_below="@+id/labelStart"
+        android:layout_marginTop="24dp"
+        android:layout_marginLeft="5dp"/>
+
+    <TextView
+        android:id="@+id/eventStartDate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="1 January 2014 2:00AM"
+        android:layout_marginTop="24dp"
+        android:layout_marginLeft="10dp"
+        android:layout_toRightOf="@+id/labelStart"
+        android:layout_below="@id/eventImage"
+      />
+
+    <TextView
+        android:id="@+id/eventEndDate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="1 January 2014 2:07AM"
+        android:layout_marginTop="24dp"
+        android:layout_marginLeft="10dp"
+        android:layout_toRightOf="@+id/labelEnd"
+        android:layout_below="@id/eventStartDate"
+        />
+
+    <TextView
+        android:id="@+id/labelEventInfo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Event Info"
+        android:layout_below="@+id/eventEndDate"
+        android:layout_marginLeft="5dp"
+        android:layout_marginTop="24dp"
+     />
+
+    <TextView
+        android:id="@+id/eventContent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="New Text jkfjksdhf ksjhdfkjsdhkfjhsdkjfhsdkjhfkjsd fsdkjfo;sdhflkjds fjsdj ioashfkjsdhfkjsdgfkjsdfsdfsdfds"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="5dp"
+        android:layout_marginTop="5dp"
+        android:layout_below="@id/labelEventInfo"
+        />
+
+    <Button
+        android:id="@+id/buttonMap"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="Show In Map"
+        android:layout_marginBottom="79dp"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true" />
+
+    <Button
+        android:id="@+id/buttonFacebook"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="Facebook Event"
+        android:layout_marginBottom="22dp"
+        android:layout_alignParentBottom="true"
+         />
+
+</RelativeLayout>

@@ -1,16 +1,16 @@
 package com.appulse.uec;
 
-import android.support.v7.app.ActionBarActivity;;
 import android.app.Activity;
-import android.support.v7.app.ActionBar;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.ActionBarDrawerToggle;
-import android.support.v4.view.GravityCompat;
-import android.support.v4.widget.DrawerLayout;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.support.v4.app.ActionBarDrawerToggle;
+import android.support.v4.app.Fragment;
+import android.support.v4.view.GravityCompat;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBar;
+import android.support.v7.app.ActionBarActivity;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -18,9 +18,13 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
+import android.widget.ListAdapter;
 import android.widget.ListView;
-import android.widget.Toast;
+
+import java.util.ArrayList;
+import java.util.List;
+
+;
 
 /**
  * Fragment used for managing interactions for and presentation of a navigation drawer.
@@ -97,15 +101,47 @@ public class NavigationDrawerFragment extends Fragment {
                 selectItem(position);
             }
         });
-        mDrawerListView.setAdapter(new ArrayAdapter<String>(
+
+
+       /* mDrawerListView.setAdapter(new ArrayAdapter<String>(
                 getActionBar().getThemedContext(),
                 android.R.layout.simple_list_item_1,
                 android.R.id.text1,
-                new String[]{
-                        getString(R.string.title_section1),
-                        getString(R.string.title_section2),
-                        getString(R.string.title_section3),
-                }));
+               */
+
+        List<NavMenuItem> listData = new ArrayList<NavMenuItem>();
+
+        NavMenuItem m = new NavMenuItem();
+        m.title = "News";
+        m.image = this.getResources().getIdentifier("newspaper", "drawable", getActivity().getPackageName());
+        listData.add(m);
+
+        NavMenuItem m1 = new NavMenuItem();
+        m1.title = "About";
+        m1.image =  this.getResources().getIdentifier("about", "drawable", getActivity().getPackageName());
+
+        listData.add(m1);
+
+        NavMenuItem m2 = new NavMenuItem();
+        m2.title = "Calendar";
+        m2.image = this.getResources().getIdentifier("calendar", "drawable", getActivity().getPackageName());
+        listData.add(m2);
+
+        NavMenuItem m3= new NavMenuItem();
+        m3.title = "committee";
+        m3.image = this.getResources().getIdentifier("committee", "drawable", getActivity().getPackageName());
+        listData.add(m3);
+
+        NavMenuItem m4= new NavMenuItem();
+        m4.title = "Torques";
+        m4.image = this.getResources().getIdentifier("book", "drawable", getActivity().getPackageName());
+        listData.add(m4);
+
+
+
+        ListAdapter adapter = new NavigationAdapter(inflater.getContext(), listData);
+
+        mDrawerListView.setAdapter( adapter);
         mDrawerListView.setItemChecked(mCurrentSelectedPosition, true);
         return mDrawerListView;
     }
@@ -260,10 +296,7 @@ public class NavigationDrawerFragment extends Fragment {
             return true;
         }
 
-        if (item.getItemId() == R.id.action_example) {
-            Toast.makeText(getActivity(), "Example action.", Toast.LENGTH_SHORT).show();
-            return true;
-        }
+
 
         return super.onOptionsItemSelected(item);
     }
