@@ -3,65 +3,12 @@
     android:layout_height="fill_parent"
     xmlns:android="http://schemas.android.com/apk/res/android">
 
-
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceSmall"
-        android:text="VERSION"
+        android:text="Static Text"
         android:id="@+id/textView"
-        android:layout_marginLeft="22dp"
-        android:layout_marginTop="51dp"
         android:layout_alignParentTop="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceSmall"
-        android:text="FEEDBACK"
-        android:id="@+id/textView2"
-        android:layout_marginTop="81dp"
-        android:layout_below="@+id/textView"
-        android:layout_alignLeft="@+id/textView"
-        android:layout_alignStart="@+id/textView"
-      />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceSmall"
-        android:text="This app is obviously not 100% complete yet. We need to do some tunning. Let me know the changes that need doing"
-        android:id="@+id/textView3"
-        android:layout_below="@+id/textView2"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginTop="132dp"
-        android:layout_gravity="bottom"
-        android:paddingRight="10dp"
-        android:paddingLeft="10dp"
-        />
-
-    <Button
-        style="?android:attr/buttonStyleSmall"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:text="Show Version Info"
-        android:id="@+id/versionButton"
-        android:layout_below="@+id/textView"
-        android:layout_marginTop="24dp"
-         />
-
-    <Button
-        style="?android:attr/buttonStyleSmall"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:text="Email Feedback"
-        android:id="@+id/emailFeedback"
-        android:layout_below="@+id/textView2"
-
-        android:layout_marginTop="24dp"
-        />
-
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="212dp" />
 </RelativeLayout>

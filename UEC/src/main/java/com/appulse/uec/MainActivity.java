@@ -1,6 +1,5 @@
 package com.appulse.uec;
 
-import android.app.Activity;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -8,16 +7,13 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.TextView;
 
 public class MainActivity extends ActionBarActivity
         implements NavigationDrawerFragment.NavigationDrawerCallbacks, FragNewsList.onNewsItemSelectedListener,
-FragNewsListDetail.onNewsDetailSelectedListener{
+FragNewsListDetail.onNewsDetailSelectedListener, FragAbout.onAboutListener, FragEventList.onEventsItemSelectedListener
+{
 
     /**
      * Fragment managing the behaviors, interactions and presentation of the navigation drawer.
@@ -44,14 +40,14 @@ FragNewsListDetail.onNewsDetailSelectedListener{
                 (DrawerLayout) findViewById(R.id.drawer_layout));
         FragNewsList.setOnMySignalListener(this);
         FragNewsListDetail.setOnMySignalListener(this);
-
+        FragEventList.setOnMySignalListener(this);
+        FragAbout.setOnMySignalListener(this);
         if (mNavigationDrawerFragment != null) {
             //mNavigationDrawerFragment.showIndicator(false);
 
         }
 
     }
-
 
     @Override
     public void onNavigationDrawerItemSelected(int position) {
@@ -61,37 +57,38 @@ FragNewsListDetail.onNewsDetailSelectedListener{
         fragmentManager.beginTransaction()
                 .replace(R.id.container, fragment)
                 .commit();
-        setTitle(getTitle(position));
-      //  getSupportActionBar().setTitle(getTitle(position));
+        mTitle = getTitle(position);
+       setTitle(mTitle);
+      // getSupportActionBar().setTitle(getTitle(position));
         //while(getSupportFragmentManager().popBackStackImmediate()){}
     }
 
     public String getTitle(int position) {
-        return "News";
+        if (position ==1) {
+            return "About";
+        } else if (position == 2) {
+            return "Calendar";
+        } else {
+            return "News";
+        }
     }
     public Fragment getFragment(int position) {
-        return new FragNewsList();
+        if (position ==1) {
+            return new FragAbout();
+        } else if (position == 2) {
+            return new FragEventList();
+        } else {
+            return new FragNewsList();
+        }
+
     }
     public void onSectionAttached(int number) {
-
-
-
-        switch (number) {
-            case 1:
-                //mTitle = "News";
-                break;
-            case 2:
-                mTitle = getString(R.string.title_section2);
-                break;
-            case 3:
-                mTitle = getString(R.string.title_section3);
-                break;
-        }
+        mTitle = getTitle(number);
     }
 
     public void restoreActionBar() {
         ActionBar actionBar = getSupportActionBar();
-        actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_STANDARD);
+     //   actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_STANDARD);
         actionBar.setDisplayShowTitleEnabled(true);
         actionBar.setTitle(mTitle);
     }
@@ -116,9 +113,9 @@ FragNewsListDetail.onNewsDetailSelectedListener{
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
-        if (id == R.id.action_settings) {
-            return true;
-        }
+        //if (id == R.id.action_settings) {
+          //  return true;
+        //}
         if (id == android.R.id.home) {
             FragmentManager fragmentManager = getSupportFragmentManager();
             //fragmentManager.beginTransaction()
@@ -184,47 +181,47 @@ FragNewsListDetail.onNewsDetailSelectedListener{
         //mNavigationDrawerFragment.showIndicator(false);
     }
 
-
-    /**
-     * A placeholder fragment containing a simple view.
+    /*
+        About section listeners
      */
-    public static class PlaceholderFragment extends Fragment {
-        /**
-         * The fragment argument representing the section number for this
-         * fragment.
-         */
-        private static final String ARG_SECTION_NUMBER = "section_number";
+    @Override
+    public void onAboutUECSelected() {
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        fragmentManager.beginTransaction()
+                .replace(R.id.container, new FragAboutUEC()).addToBackStack(null).commit();
 
-        /**
-         * Returns a new instance of this fragment for the given section
-         * number.
-         */
-        public static PlaceholderFragment newInstance(int sectionNumber) {
-            PlaceholderFragment fragment = new PlaceholderFragment();
-            Bundle args = new Bundle();
-            args.putInt(ARG_SECTION_NUMBER, sectionNumber);
-            fragment.setArguments(args);
-            return fragment;
-        }
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        public PlaceholderFragment() {
-        }
-
-        @Override
-        public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                Bundle savedInstanceState) {
-            View rootView = inflater.inflate(R.layout.fragment_main, container, false);
-            TextView textView = (TextView) rootView.findViewById(R.id.section_label);
-            textView.setText(Integer.toString(getArguments().getInt(ARG_SECTION_NUMBER)));
-            return rootView;
-        }
-
-        @Override
-        public void onAttach(Activity activity) {
-            super.onAttach(activity);
-            ((MainActivity) activity).onSectionAttached(
-                    getArguments().getInt(ARG_SECTION_NUMBER));
-        }
+        mNavigationDrawerFragment.showIndicator(false);
     }
 
+    @Override
+    public void onAboutAppSelected() {
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        fragmentManager.beginTransaction()
+                .replace(R.id.container, new FragAboutApp()).addToBackStack(null).commit();
+
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        mNavigationDrawerFragment.showIndicator(false);
+
+    }
+
+    @Override
+    public void onEventItemSelected(int id) {
+        FragmentManager fragmentManager = getSupportFragmentManager();
+
+        Fragment eventDetail = new FragEventsListDetail();
+        Log.e("EventListDetail", "" + id);
+        Bundle args = new Bundle();
+        args.putInt("id", id);
+        eventDetail.setArguments(args);
+
+        fragmentManager.beginTransaction()
+                .replace(R.id.container, eventDetail).addToBackStack(null).commit();
+
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        mNavigationDrawerFragment.showIndicator(false);
+    }
 }

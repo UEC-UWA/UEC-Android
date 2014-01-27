@@ -1,0 +1,45 @@
+<resources>
+    <string-array name="news_entity">
+        <item>id</item>
+        <item>title</item>
+        <item>summary</item>
+        <item>category</item>
+        <item>content</item>
+        <item>date</item>
+        <item>link</item>
+    </string-array>
+    <string-array name="committee_entity">
+        <item>id</item>
+        <item>first_name</item>
+        <item>last_name</item>
+        <item>photo_path</item>
+        <item>position</item>
+        <item>email</item>
+        <item>subcommittee</item>
+        <item>summary</item>
+    </string-array>
+    <string-array name="events_entity">
+        <item>id</item>
+        <item>location</item>
+        <item>start_date</item>
+        <item>end_date</item>
+        <item>name</item>
+        <item>type</item>
+        <item>start_sale</item>
+        <item>end_sale</item>
+        <item>tickets_left</item>
+        <item>total_tickets</item>
+        <item>extended_sale</item>
+        <item>address</item>
+        <item>event_description</item>
+        <item>facebook_link</item>
+        <item>photo_path</item>
+    </string-array>
+    <string-array name="sponsors_entity">
+        <item>id</item>
+        <item>name</item>
+        <item>website_path</item>
+        <item>logo_path</item>
+    </string-array>
+
+</resources>

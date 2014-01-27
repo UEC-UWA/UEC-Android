@@ -29,7 +29,7 @@ public class ManagedEntity {
     }
 
     public Object getValue(String key) {
-        if (values.containsKey("key")) {
+        if (values.containsKey(key)) {
             return values.get(key);
         }
         return "";

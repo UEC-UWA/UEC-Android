@@ -10,12 +10,15 @@
 
 <!-- ActionBar styles -->
 <style name="MyActionBar"
-    parent="@style/Widget.AppCompat.Light.ActionBar.Solid.Inverse">
-<item name="android:background">@drawable/actionbar_background</item>
-    <item name="android:windowTitleSize">65dip</item>
+    parent="@style/Widget.AppCompat.Light.ActionBar.Solid.Inverse"></style>
+<!-- <item name="android:background">@drawable/actionbar_background</item>
+    <item name="android:windowTitleSize">65dip</item> -->
 <!-- Support library compatibility -->
+    <!--
 <item name="background">@drawable/actionbar_background</item>
 </style>
 
     <drawable name="actionbar_background">#F9D932</drawable>
+
+    -->
 </resources>

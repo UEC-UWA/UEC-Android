@@ -19,7 +19,7 @@ public class MySQLHelper extends SQLiteOpenHelper {
     // Database Version
     private static final int DATABASE_VERSION = 1;
     // Database Name
-    private static final String DATABASE_NAME = "NewsDB3";
+    private static final String DATABASE_NAME = "NewsDB1";
 
     private String package_name = "com.appulse.app.model.";
 
@@ -51,17 +51,43 @@ public class MySQLHelper extends SQLiteOpenHelper {
                 "summary TEXT" +
                 ")";
 
-        // create books table
+        String CREATE_EVENTS_TABLE= "CREATE TABLE Events ( " +
+                "id INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                "location TEXT, "+
+                "start_date DATETIME, " +
+                "end_date DATETIME, " +
+                "name TEXT, " +
+                "type TEXT, " +
+                "start_sale DATETIME, " +
+                "end_sale DATETIME," +
+                "tickets_left INTEGER, " +
+                "total_tickets INTEGER," +
+                "extended_sale TEXT," +
+                "address TEXT, " +
+                "event_description TEXT," +
+                "facebook_link TEXT," +
+                "photo_path TEXT" +
+                ")";
+        String CREATE_SPONSORS_TABLE= "CREATE TABLE Sponsors ( " +
+                "id INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                "name TEXT, "+
+                "website_path TEXT, " +
+                "logo_path TEXT " +
+                ")";
 
+        db.execSQL(CREATE_SPONSORS_TABLE);
         db.execSQL(CREATE_COMMITTEE_TABLE);
         db.execSQL(CREATE_NEWS_TABLE);
+        db.execSQL(CREATE_EVENTS_TABLE);
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         // Drop older books table if existed
         db.execSQL("DROP TABLE IF EXISTS News");
+        db.execSQL("DROP TABLE IF EXISTS Sponsors");
         db.execSQL("DROP TABLE IF EXISTS Committee");
+        db.execSQL("DROP TABLE IF EXISTS Events");
         // create fresh books table
         this.onCreate(db);
     }
@@ -103,15 +129,8 @@ public class MySQLHelper extends SQLiteOpenHelper {
 
     public ManagedEntity getEntity(String entity, int id, String[] columns) {
         ManagedEntity results = null;
-        try {
-            results  = (ManagedEntity) Class.forName(package_name + entity).newInstance();
-        } catch (InstantiationException e) {
-            return results;
-        } catch (IllegalAccessException e) {
-            return results;
-        } catch (ClassNotFoundException e) {
-            return results;
-        }
+
+        results  = new ManagedEntity(entity);
 
         SQLiteDatabase db = this.getReadableDatabase();
 
@@ -163,8 +182,8 @@ public class MySQLHelper extends SQLiteOpenHelper {
         if (cursor.moveToFirst()) {
             do {
                 ManagedEntity results = null;
-                try {
-                    results  = (ManagedEntity) Class.forName(package_name + entity).newInstance();
+
+                    results  =  new ManagedEntity(entity);
                     results.setId(Integer.parseInt(cursor.getString(0)));
                     int num_columns = columns.length;
                     // Log.e("MysqlHelper","Cursor " + cursor.get);
@@ -192,13 +211,7 @@ public class MySQLHelper extends SQLiteOpenHelper {
 
                     // Add book to books
                     list.add(results);
-                } catch (InstantiationException e) {
-                    return null;
-                } catch (IllegalAccessException e) {
-                    return null;
-                } catch (ClassNotFoundException e) {
-                    return null;
-                }
+
             } while (cursor.moveToNext());
         }
 
@@ -209,7 +222,8 @@ public class MySQLHelper extends SQLiteOpenHelper {
         List<ManagedEntity> list = new LinkedList<ManagedEntity>();
 
         // 1. build the query
-        String query = "SELECT id,title,summary,category, content, date,link FROM " + entity;
+        String columnList = arrayToCommaList(columns);
+        String query = "SELECT " +columnList + " FROM " + entity;
 
         // 2. get reference to writable DB
         SQLiteDatabase db = this.getWritableDatabase();
@@ -218,8 +232,8 @@ public class MySQLHelper extends SQLiteOpenHelper {
         if (cursor.moveToFirst()) {
             do {
                 ManagedEntity results = null;
-                try {
-                    results  = (ManagedEntity) Class.forName(package_name + entity).newInstance();
+
+                    results  = new ManagedEntity(entity);
                     results.setId(Integer.parseInt(cursor.getString(0)));
                     int num_columns = columns.length;
                     // Log.e("MysqlHelper","Cursor " + cursor.get);
@@ -236,13 +250,7 @@ public class MySQLHelper extends SQLiteOpenHelper {
 
                     // Add book to books
                     list.add(results);
-                } catch (InstantiationException e) {
-                    return null;
-                } catch (IllegalAccessException e) {
-                    return null;
-                } catch (ClassNotFoundException e) {
-                    return null;
-                }
+
             } while (cursor.moveToNext());
         }
 
