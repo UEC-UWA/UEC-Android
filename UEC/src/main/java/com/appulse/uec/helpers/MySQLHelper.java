@@ -19,7 +19,7 @@ public class MySQLHelper extends SQLiteOpenHelper {
     // Database Version
     private static final int DATABASE_VERSION = 1;
     // Database Name
-    private static final String DATABASE_NAME = "NewsDB1";
+    private static final String DATABASE_NAME = "NewsDB11";
 
     private String package_name = "com.appulse.app.model.";
 
@@ -75,6 +75,14 @@ public class MySQLHelper extends SQLiteOpenHelper {
                 "logo_path TEXT " +
                 ")";
 
+        String CREATE_TORQUES_TABLE= "CREATE TABLE Torques ( " +
+                "id INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                "file_address TEXT, "+
+                "title TEXT, " +
+                "date DATETIME " +
+                ")";
+
+        db.execSQL(CREATE_TORQUES_TABLE);
         db.execSQL(CREATE_SPONSORS_TABLE);
         db.execSQL(CREATE_COMMITTEE_TABLE);
         db.execSQL(CREATE_NEWS_TABLE);
@@ -84,6 +92,7 @@ public class MySQLHelper extends SQLiteOpenHelper {
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         // Drop older books table if existed
+        db.execSQL("DROP TABLE IF EXISTS Torques");
         db.execSQL("DROP TABLE IF EXISTS News");
         db.execSQL("DROP TABLE IF EXISTS Sponsors");
         db.execSQL("DROP TABLE IF EXISTS Committee");
@@ -238,13 +247,9 @@ public class MySQLHelper extends SQLiteOpenHelper {
                     int num_columns = columns.length;
                     // Log.e("MysqlHelper","Cursor " + cursor.get);
                     for (int i = 1; i < num_columns; i++) {
-                        if (columns[i].equals("date")) {
-                            String value = cursor.getString(i);
 
-                            results.setValue(columns[i],Integer.valueOf(value));
-                        } else {
                             results.setValue(columns[i],cursor.getString(i));
-                        }
+
 
                     }
 

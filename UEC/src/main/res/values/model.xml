@@ -42,4 +42,11 @@
         <item>logo_path</item>
     </string-array>
 
+<string-array name="torques_entity">
+<item>id</item>
+<item>file_address</item>
+<item>title</item>
+<item>date</item>
+</string-array>
+
 </resources>

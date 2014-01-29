@@ -11,8 +11,11 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 public class MainActivity extends ActionBarActivity
-        implements NavigationDrawerFragment.NavigationDrawerCallbacks, FragNewsList.onNewsItemSelectedListener,
-FragNewsListDetail.onNewsDetailSelectedListener, FragAbout.onAboutListener, FragEventList.onEventsItemSelectedListener
+        implements NavigationDrawerFragment.NavigationDrawerCallbacks, FragNewsList.onNewsItemSelectedListener, FragAbout.onAboutListener,
+        FragEventList.onEventsItemSelectedListener,
+        FragTorques.onTorquesListener,
+        FragCommitteeList.onCommitteeItemSelectedListener
+
 {
 
     /**
@@ -39,9 +42,11 @@ FragNewsListDetail.onNewsDetailSelectedListener, FragAbout.onAboutListener, Frag
                 R.id.navigation_drawer,
                 (DrawerLayout) findViewById(R.id.drawer_layout));
         FragNewsList.setOnMySignalListener(this);
-        FragNewsListDetail.setOnMySignalListener(this);
+
         FragEventList.setOnMySignalListener(this);
         FragAbout.setOnMySignalListener(this);
+        FragTorques.setOnMySignalListener(this);
+        FragCommitteeList.setOnMySignalListener(this);
         if (mNavigationDrawerFragment != null) {
             //mNavigationDrawerFragment.showIndicator(false);
 
@@ -68,6 +73,10 @@ FragNewsListDetail.onNewsDetailSelectedListener, FragAbout.onAboutListener, Frag
             return "About";
         } else if (position == 2) {
             return "Calendar";
+        } else if (position == 3) {
+            return "Committee";
+        } else if (position == 4) {
+            return  "Torques";
         } else {
             return "News";
         }
@@ -77,6 +86,10 @@ FragNewsListDetail.onNewsDetailSelectedListener, FragAbout.onAboutListener, Frag
             return new FragAbout();
         } else if (position == 2) {
             return new FragEventList();
+        } else if (position == 3) {
+              return new FragCommitteeList();
+        } else if (position == 4) {
+            return  new FragTorques();
         } else {
             return new FragNewsList();
         }
@@ -141,16 +154,7 @@ FragNewsListDetail.onNewsDetailSelectedListener, FragAbout.onAboutListener, Frag
     }
 
 
-    @Override
-    public void onNewsItemSelected(int value) {
-        FragmentManager fragmentManager = getSupportFragmentManager();
-        fragmentManager.beginTransaction()
-                .replace(R.id.container, new FragNewsListDetail()).addToBackStack(null).commit();
 
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
-        mNavigationDrawerFragment.showIndicator(false);
-    }
 
     @Override
     public void onBackPressed() {
@@ -168,17 +172,6 @@ FragNewsListDetail.onNewsDetailSelectedListener, FragAbout.onAboutListener, Frag
         Log.e("MainActivity","Back Press~!!!!!!!!!!");
         super.onBackPressed();
 
-    }
-
-    @Override
-    public void onNewsDetailSelected(int value) {
-        FragmentManager fragmentManager = getSupportFragmentManager();
-        fragmentManager.beginTransaction()
-                .replace(R.id.container, new FragNewsListDetail()).addToBackStack(null).commit();
-
-        //getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
-        //mNavigationDrawerFragment.showIndicator(false);
     }
 
     /*
@@ -219,6 +212,60 @@ FragNewsListDetail.onNewsDetailSelectedListener, FragAbout.onAboutListener, Frag
 
         fragmentManager.beginTransaction()
                 .replace(R.id.container, eventDetail).addToBackStack(null).commit();
+
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        mNavigationDrawerFragment.showIndicator(false);
+    }
+
+    @Override
+    public void onTorquesSelected(String value) {
+        FragmentManager fragmentManager = getSupportFragmentManager();
+
+        Fragment torqueDetail = new FragTorqueDetail();
+
+        Bundle args = new Bundle();
+        args.putString("url", value);
+        torqueDetail.setArguments(args);
+
+        fragmentManager.beginTransaction()
+                .replace(R.id.container, torqueDetail).addToBackStack(null).commit();
+
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        mNavigationDrawerFragment.showIndicator(false);
+    }
+
+    @Override
+    public void onNewsItemSelected(String value) {
+        FragmentManager fragmentManager = getSupportFragmentManager();
+
+        Fragment newsDetail = new FragNewsListDetail();
+
+        Bundle args = new Bundle();
+        args.putString("content", value);
+        newsDetail.setArguments(args);
+
+        fragmentManager.beginTransaction()
+                .replace(R.id.container, newsDetail).addToBackStack(null).commit();
+
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        mNavigationDrawerFragment.showIndicator(false);
+    }
+
+    @Override
+    public void onCommitteeItemSelected(int id) {
+        FragmentManager fragmentManager = getSupportFragmentManager();
+
+        Fragment committeeDetail = new FragCommitteeListDetail();
+
+        Bundle args = new Bundle();
+        args.putInt("id", id);
+        committeeDetail.setArguments(args);
+
+        fragmentManager.beginTransaction()
+                .replace(R.id.container, committeeDetail).addToBackStack(null).commit();
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 

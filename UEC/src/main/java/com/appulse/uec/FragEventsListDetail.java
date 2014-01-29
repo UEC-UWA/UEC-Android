@@ -28,7 +28,6 @@ public class FragEventsListDetail  extends Fragment {
 
         id = getArguments().getInt("id");
 
-
         Resources res = getResources();
         column = res.getStringArray(R.array.events_entity);
         event = db.getEntity("Events",id,column);
@@ -36,7 +35,7 @@ public class FragEventsListDetail  extends Fragment {
         View view = inflater.inflate(R.layout.frag_event_detail, container, false);
 
         TextView eventName = (TextView) view.findViewById(R.id.eventName);
-        eventName.setText((String) event.getValue("name"));
+        eventName.setText((String) event.getValue("first_name"));
         return view;
     }
 }

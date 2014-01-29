@@ -13,12 +13,12 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ListView;
 
 import com.appulse.uec.helpers.ManagedEntity;
 import com.appulse.uec.helpers.MySQLHelper;
-import com.appulse.uec.helpers.NewsAdapter;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 
@@ -27,12 +27,11 @@ import org.json.JSONException;
 
 import java.util.List;
 
-
 /**
  * Author: Can Elmas <can.elmas@pozitron.com>
  * Date: 1/14/13 11:50 AM
  */
-public final class FragNewsList extends Fragment {
+public final class FragTorques extends Fragment {
 
     /**
      *
@@ -60,41 +59,52 @@ public final class FragNewsList extends Fragment {
 
     private ListView mListView;
 
-    NewsAdapter adapter;
+    ArrayAdapter adapter;
 
     private List mListItems;
-    private static final String ENTITY_NAME = "News";
+    private static final String ENTITY_NAME = "Torques";
 
     EditText inputSearch;
 
     String[] column;
 
-    private static onNewsItemSelectedListener listener;
+    private static onTorquesListener listener;
 
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-        View view = inflater.inflate(R.layout.frag_news_list, container, false);
+        View view = inflater.inflate(R.layout.frag_torques, container, false);
 
 
         MySQLHelper db = new MySQLHelper(getActivity());
 
         Resources res = getResources();
-        column = res.getStringArray(R.array.news_entity);
+        column = res.getStringArray(R.array.torques_entity);
 
         //  db.deleteAllForEntity(ENTITY_NAME);
-        mListItems = db.getAllForEntity(ENTITY_NAME,column);
+        mListItems = db.getAllForEntity(ENTITY_NAME, column);
         updateList(null);
-       // ActionBar actionBar = getActivity().getActionBar();
+        //ActionBar actionBar = getActivity().getActionBar();
 
-        //actionBar.setDisplayOptions(ActionBar.DISPLAY_SHOW_HOME
-              //  | ActionBar.DISPLAY_SHOW_TITLE | ActionBar.DISPLAY_SHOW_CUSTOM);
+        // actionBar.setDisplayOptions(ActionBar.DISPLAY_SHOW_HOME
+        //| ActionBar.DISPLAY_SHOW_TITLE | ActionBar.DISPLAY_SHOW_CUSTOM);
 
-        //inputSearch = (EditText) view.findViewById(R.id.inputSearch);
+        // inputSearch = (EditText) view.findViewById(R.id.inputSearch);
+
+        String items[];
+        if (mListItems == null) {
+            items = new String[0];
+        } else {
+            items = new String[mListItems.size()];
+            for (int i = 0; i < mListItems.size(); i++) {
+                ManagedEntity result = (ManagedEntity) mListItems.get(i);
+                items[i] = (String) result.getValue("title");
+            }
+        }
 
         mListView = (ListView) view.findViewById(R.id.listView);
-        adapter = new NewsAdapter(inflater.getContext(), mListItems);
+        adapter = new ArrayAdapter(inflater.getContext(), android.R.layout.simple_list_item_1, items);
         mListView.setAdapter(adapter);
 
         mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -103,31 +113,9 @@ public final class FragNewsList extends Fragment {
             }
         } );
 
-/*
-        inputSearch.addTextChangedListener(new TextWatcher() {
 
-            @Override
-            public void onTextChanged(CharSequence cs, int arg1, int arg2, int arg3) {
-                // When user changed the Text
-                FragNewsList.this.adapter.getFilter().filter(cs);
-            }
-
-            @Override
-            public void beforeTextChanged(CharSequence arg0, int arg1, int arg2,
-                                          int arg3) {
-                // TODO Auto-generated method stub
-
-            }
-
-            @Override
-            public void afterTextChanged(Editable arg0) {
-                // TODO Auto-generated method stub
-            }
-        });
-*/
         return view;
     }
-
 
     private boolean isNetworkAvailable() {
         ConnectivityManager manager = (ConnectivityManager) getActivity().getSystemService(Context.CONNECTIVITY_SERVICE);
@@ -137,28 +125,32 @@ public final class FragNewsList extends Fragment {
 
     public void updateList(MenuItem item) {
         if (isNetworkAvailable()) {
-           // item.setActionView(R.layout.progressbar);
-            //item.expandActionView();
-            //mItem = item;
+            //item.setActionView(R.layout.progressbar);
+            //  item.expandActionView();
+            // mItem = item;
             get_json();
         }
 
     }
-    public interface onNewsItemSelectedListener {
-        public void onNewsItemSelected(String value);
+    public interface onTorquesListener {
+        public void onTorquesSelected(String value);
+
     }
 
+
     public void gotToDetail(int position) {
-        Log.e("FragNewsList", "Position: " + position);
+
         if (listener != null) {
             ManagedEntity item = (ManagedEntity) mListItems.get(position);
 
-            listener.onNewsItemSelected((String)item.getValue("content"));
+
+            listener.onTorquesSelected((String) item.getValue("file_address"));
         }
     }
 
-    public static void setOnMySignalListener(onNewsItemSelectedListener listener) {
-        FragNewsList.listener = listener;
+
+    public static void setOnMySignalListener(onTorquesListener listener) {
+        FragTorques.listener = listener;
     }
 
     public void handleResponse(JSONArray jsonPosts) {
@@ -173,22 +165,41 @@ public final class FragNewsList extends Fragment {
                 MySQLHelper db = new MySQLHelper(getActivity());
 
                 for (int i =0; i < jsonPosts.length(); i++) {
-                    ManagedEntity item = new ManagedEntity("News");
+                    ManagedEntity item = new ManagedEntity("Torques");
 
-                    int news_id = jsonPosts.getJSONObject(i).getInt("id");
+                    int id = jsonPosts.getJSONObject(i).getInt("id");
 
                     for (int j = 1; j < column.length; j++) {
-                       item.setValue(column[j],jsonPosts.getJSONObject(i).getString(column[j]));
+                        item.setValue(column[j],jsonPosts.getJSONObject(i).getString(column[j]));
+
                     }
-                    item.setId(news_id);
+                    item.setId(id);
 
                     db.addEntity(ENTITY_NAME, item, column);
+
+
+
+
+
                 }
 
-                List<ManagedEntity> list = db.getAllForEntity(ENTITY_NAME, column);
-                adapter = new NewsAdapter(getActivity(), list);
-                //  adapter = new ArrayAdapter<String>(getActivity(),
-                //  android.R.layout.simple_list_item_1, mListItems);
+                List list = db.getAllForEntity(ENTITY_NAME, column);
+
+                String items[];
+                if (list == null) {
+                    items = new String[0];
+                } else {
+                    items = new String[list.size()];
+                    for (int i = 0; i < list.size(); i++) {
+                        ManagedEntity result = (ManagedEntity) mListItems.get(i);
+                        items[i] = (String) result.getValue("title");
+                        Log.e("Update", items[i]);
+
+
+                    }
+                }
+
+                adapter = new ArrayAdapter(getActivity(), android.R.layout.simple_list_item_1, items);
                 mListView.setAdapter(adapter);
 
                 if (mItem != null) {
@@ -208,7 +219,7 @@ public final class FragNewsList extends Fragment {
     public void get_json() {
         AsyncHttpClient client = new AsyncHttpClient();
 
-        client.get("http://www.appulse.com.au/uec/app_scripts.php?script=newsarticle", new AsyncHttpResponseHandler() {
+        client.get("http://www.appulse.com.au/uec/app_scripts.php?script=torque", new AsyncHttpResponseHandler() {
             @Override
             public void onSuccess(String response) {
                 JSONArray result = null;
