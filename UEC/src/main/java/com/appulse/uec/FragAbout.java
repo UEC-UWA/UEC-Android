@@ -1,9 +1,11 @@
 package com.appulse.uec;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.res.Resources;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -109,7 +111,9 @@ public final class FragAbout extends Fragment {
 
         mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                //gotToDetail(position);
+               ManagedEntity item = (ManagedEntity) mListItems.get(position);
+                Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse((String)item.getValue("website_path")));
+                startActivity(browserIntent);
             }
         } );
 

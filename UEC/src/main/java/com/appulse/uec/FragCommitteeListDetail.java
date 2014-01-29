@@ -7,8 +7,10 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.appulse.uec.helpers.DownloadImagesTask;
 import com.appulse.uec.helpers.ManagedEntity;
 import com.appulse.uec.helpers.MySQLHelper;
 
@@ -37,7 +39,25 @@ public class FragCommitteeListDetail  extends Fragment {
         View view = inflater.inflate(R.layout.frag_committee_list_detail, container, false);
 
         TextView eventName = (TextView) view.findViewById(R.id.memberName);
-        eventName.setText((String) committeeMember.getValue("first_name"));
+        eventName.setText((String) committeeMember.getValue("first_name") + " " + committeeMember.getValue("last_name"));
+
+        TextView memberPosition = (TextView) view.findViewById(R.id.memberPosition);
+        memberPosition.setText((String) committeeMember.getValue("subcommittee"));
+
+        TextView memberEmail = (TextView) view.findViewById(R.id.memberEmail);
+        memberEmail.setText((String) committeeMember.getValue("email"));
+
+        TextView memberTitle = (TextView) view.findViewById(R.id.memberTitle);
+        memberTitle.setText((String) committeeMember.getValue("position"));
+
+        TextView memberSummary = (TextView) view.findViewById(R.id.memberSummary);
+        memberSummary.setText((String) committeeMember.getValue("summary"));
+
+        ImageView image = (ImageView) view.findViewById(R.id.memberImage);
+
+        image.setTag(committeeMember.getValue("photo_path"));
+        DownloadImagesTask task = new DownloadImagesTask();
+        task.execute(image);
         return view;
     }
 }

@@ -103,6 +103,7 @@ public class MainActivity extends ActionBarActivity
         ActionBar actionBar = getSupportActionBar();
      //   actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_STANDARD);
         actionBar.setDisplayShowTitleEnabled(true);
+
         actionBar.setTitle(mTitle);
     }
 
@@ -114,11 +115,12 @@ public class MainActivity extends ActionBarActivity
             // if the drawer is not showing. Otherwise, let the drawer
             // decide what to show in the action bar.
             getMenuInflater().inflate(R.menu.main, menu);
-            restoreActionBar();
-            return true;
+           restoreActionBar();
+            return super.onCreateOptionsMenu(menu);
         }
         return super.onCreateOptionsMenu(menu);
     }
+
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {

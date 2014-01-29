@@ -1,3 +1,7 @@
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/ScrollView01"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent" >
 <RelativeLayout
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
@@ -111,8 +115,9 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:text="Show In Map"
-        android:layout_marginBottom="79dp"
-        android:layout_alignParentBottom="true"
+        android:layout_marginTop="50dp"
+        android:layout_marginBottom="50dp"
+        android:layout_below="@+id/eventContent"
         android:layout_centerHorizontal="true" />
 
     <Button
@@ -120,8 +125,10 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:text="Facebook Event"
+        android:layout_below="@+id/buttonMap"
         android:layout_marginBottom="22dp"
-        android:layout_alignParentBottom="true"
+
          />
 
 </RelativeLayout>
+    </ScrollView>

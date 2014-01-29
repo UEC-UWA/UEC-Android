@@ -3,12 +3,51 @@
     android:layout_height="fill_parent"
     xmlns:android="http://schemas.android.com/apk/res/android">
 
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Static Text"
-        android:id="@+id/textView"
+        android:text="Version"
+        android:id="@+id/labelVersion"
         android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="212dp" />
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+  />
+
+    <Button
+
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="Show Version Info"
+        android:id="@+id/button"
+        android:layout_below="@+id/labelVersion"
+
+        android:layout_alignStart="@+id/textView"
+        android:layout_marginTop="39dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Feedback"
+        android:id="@+id/labelFeedback"
+        android:layout_below="@+id/button"
+        android:layout_alignLeft="@+id/button"
+        android:layout_alignStart="@+id/button"
+        android:layout_marginTop="53dp" />
+
+    <Button
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="Email Feedback"
+        android:id="@+id/feedbackButton"
+        android:layout_below="@+id/labelFeedback"
+        android:layout_marginTop="62dp" />
+
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:text="This app is obviously not 100% complete yet. We need to do some tuning. Let me the the changes which need doing"
+        android:id="@+id/labelFeedbackInfo"
+        android:layout_centerVertical="true"
+        android:layout_below="@+id/feedbackButton"/>
 </RelativeLayout>
