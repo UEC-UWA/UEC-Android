@@ -7,7 +7,7 @@ import java.util.HashMap;
  */
 public class ManagedEntity {
 
-    private HashMap<String,Object> values;
+    private HashMap<String, Object> values;
 
     private String entity;
 
@@ -17,7 +17,7 @@ public class ManagedEntity {
     }
 
     public void setId(Integer id) {
-        values.put("id",id);
+        values.put("id", id);
     }
 
     public Integer getId() {

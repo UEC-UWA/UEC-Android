@@ -65,6 +65,10 @@ public class NavigationDrawerFragment extends Fragment {
     public NavigationDrawerFragment() {
     }
 
+    public int getPosition() {
+        return mCurrentSelectedPosition;
+    }
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -84,7 +88,7 @@ public class NavigationDrawerFragment extends Fragment {
     }
 
     @Override
-    public void onActivityCreated (Bundle savedInstanceState) {
+    public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         // Indicate that this fragment would like to influence the set of actions in the action bar.
         setHasOptionsMenu(true);
@@ -92,7 +96,7 @@ public class NavigationDrawerFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
-            Bundle savedInstanceState) {
+                             Bundle savedInstanceState) {
         mDrawerListView = (ListView) inflater.inflate(
                 R.layout.fragment_navigation_drawer, container, false);
         mDrawerListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -118,7 +122,7 @@ public class NavigationDrawerFragment extends Fragment {
 
         NavMenuItem m1 = new NavMenuItem();
         m1.title = "About";
-        m1.image =  this.getResources().getIdentifier("about", "drawable", getActivity().getPackageName());
+        m1.image = this.getResources().getIdentifier("about", "drawable", getActivity().getPackageName());
 
         listData.add(m1);
 
@@ -127,38 +131,38 @@ public class NavigationDrawerFragment extends Fragment {
         m2.image = this.getResources().getIdentifier("calendar", "drawable", getActivity().getPackageName());
         listData.add(m2);
 
-        NavMenuItem m3= new NavMenuItem();
-        m3.title = "committee";
+        NavMenuItem m3 = new NavMenuItem();
+        m3.title = "Committee";
         m3.image = this.getResources().getIdentifier("committee", "drawable", getActivity().getPackageName());
         listData.add(m3);
 
-        NavMenuItem m4= new NavMenuItem();
+        NavMenuItem m4 = new NavMenuItem();
         m4.title = "Torques";
         m4.image = this.getResources().getIdentifier("book", "drawable", getActivity().getPackageName());
         listData.add(m4);
 
 
-
         ListAdapter adapter = new NavigationAdapter(inflater.getContext(), listData);
 
-        mDrawerListView.setAdapter( adapter);
+        mDrawerListView.setAdapter(adapter);
         mDrawerListView.setItemChecked(mCurrentSelectedPosition, true);
         return mDrawerListView;
     }
 
     public void showIndicator(boolean visible) {
         if (mDrawerToggle != null) {
-        mDrawerToggle.setDrawerIndicatorEnabled(visible);
+            mDrawerToggle.setDrawerIndicatorEnabled(visible);
 
             if (!visible) {
                 mDrawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
             } else {
                 mDrawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED);
-             //   mDrawerLayout.closeDrawer(DrawerLayout.TEXT_ALIGNMENT_VIEW_START);
+                //   mDrawerLayout.closeDrawer(DrawerLayout.TEXT_ALIGNMENT_VIEW_START);
                 mDrawerLayout.closeDrawers();
             }
         }
     }
+
     public boolean isDrawerOpen() {
         return mDrawerLayout != null && mDrawerLayout.isDrawerOpen(mFragmentContainerView);
     }
@@ -172,7 +176,7 @@ public class NavigationDrawerFragment extends Fragment {
     public void setUp(int fragmentId, DrawerLayout drawerLayout) {
         mFragmentContainerView = getActivity().findViewById(fragmentId);
         mDrawerLayout = drawerLayout;
-       // mDrawerLayout.setFocusableInTouchMode(false);
+        // mDrawerLayout.setFocusableInTouchMode(false);
         // set a custom shadow that overlays the main content when the drawer opens
         mDrawerLayout.setDrawerShadow(R.drawable.drawer_shadow, GravityCompat.START);
         // set up the drawer's list view with items and click listener
@@ -297,7 +301,6 @@ public class NavigationDrawerFragment extends Fragment {
         }
 
 
-
         return super.onOptionsItemSelected(item);
     }
 
@@ -308,7 +311,7 @@ public class NavigationDrawerFragment extends Fragment {
     private void showGlobalContextActionBar() {
         ActionBar actionBar = getActionBar();
         actionBar.setDisplayShowTitleEnabled(true);
-       actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_STANDARD);
+        actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_STANDARD);
         actionBar.setTitle(R.string.app_name);
     }
 

@@ -16,8 +16,6 @@ import java.text.SimpleDateFormat;
 import java.util.List;
 
 
-
-
 public class EventsAdapter extends BaseAdapter {
 
     private List listData;
@@ -54,7 +52,7 @@ public class EventsAdapter extends BaseAdapter {
         Object listItem = listData.get(position);
 
 
-        if(listItem instanceof SectionSeparator){
+        if (listItem instanceof SectionSeparator) {
             SectionSeparator item = (SectionSeparator) listItem;
             convertView = layoutInflater.inflate(R.layout.frag_list_section_row, null);
 
@@ -63,7 +61,7 @@ public class EventsAdapter extends BaseAdapter {
             SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd kk:mm:ss");
             try {
                 long unix_time = dateFormat.parse(item.sectionName).getTime();
-                DateFormat df= new SimpleDateFormat("d MMMM yyyy K:mm a");
+                DateFormat df = new SimpleDateFormat("d MMMM yyyy K:mm a");
                 String date_formatted = df.format(unix_time);
                 sectionView.setText(date_formatted);
 
@@ -104,7 +102,7 @@ public class EventsAdapter extends BaseAdapter {
                 t.execute(holder.image);
             }
         }
-            return convertView;
+        return convertView;
 
     }
 

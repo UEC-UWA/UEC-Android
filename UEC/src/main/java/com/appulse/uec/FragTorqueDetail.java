@@ -12,16 +12,17 @@ import android.webkit.WebView;
  */
 public class FragTorqueDetail extends Fragment {
     private String url;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.frag_torques_details, container, false);
         url = getArguments().getString("url");
 
-         WebView mWebView = (WebView) view.findViewById(R.id.webView);
-         mWebView.getSettings().setJavaScriptEnabled(true);
+        WebView mWebView = (WebView) view.findViewById(R.id.webView);
+        mWebView.getSettings().setJavaScriptEnabled(true);
 
-         mWebView.loadUrl("https://docs.google.com/gview?embedded=true&url="+url);
+        mWebView.loadUrl("https://docs.google.com/gview?embedded=true&url=" + url);
 
         return view;
     }

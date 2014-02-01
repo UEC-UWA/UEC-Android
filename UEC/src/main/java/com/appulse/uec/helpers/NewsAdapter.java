@@ -72,8 +72,8 @@ public class NewsAdapter extends BaseAdapter {
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd kk:mm:ss");
 
         try {
-            long unix_time = dateFormat.parse((String)item.getValue("date")).getTime();
-            DateFormat df= new SimpleDateFormat("d MMMM yyyy K:mm a");
+            long unix_time = dateFormat.parse((String) item.getValue("date")).getTime();
+            DateFormat df = new SimpleDateFormat("d MMMM yyyy K:mm a");
             String date_formatted = df.format(unix_time);
             holder.date.setText(date_formatted);
         } catch (ParseException e) {

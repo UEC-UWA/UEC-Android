@@ -1,9 +1,6 @@
 package com.appulse.uec;
 
-import android.content.Context;
 import android.content.res.Resources;
-import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -35,26 +32,24 @@ import java.util.List;
 public final class FragNewsList extends Fragment {
 
     /**
-     *
-     *  The Wrapper Fragment that host nested child fragments.
-     *
-     *  First child fragment is added in onActivityCreated() callback
-     *
-     *  More child fragments can be added at runtime by clicking 'Go Nesty!'
-     *  button.
-     *
+     * The Wrapper Fragment that host nested child fragments.
+     * <p/>
+     * First child fragment is added in onActivityCreated() callback
+     * <p/>
+     * More child fragments can be added at runtime by clicking 'Go Nesty!'
+     * button.
      */
 
     public static final String TAG = "FragNews";
 
     /**
-     *  Child Fragment Manager
+     * Child Fragment Manager
      */
     private FragmentManager fm;
 
     MenuItem mItem;
     /**
-     *  Fragment Tags
+     * Fragment Tags
      */
     private int fragCount = 1;
 
@@ -84,12 +79,12 @@ public final class FragNewsList extends Fragment {
         column = res.getStringArray(R.array.news_entity);
 
         //  db.deleteAllForEntity(ENTITY_NAME);
-        mListItems = db.getAllForEntity(ENTITY_NAME,column);
-        updateList(null);
-       // ActionBar actionBar = getActivity().getActionBar();
+        mListItems = db.getAllForEntity(ENTITY_NAME, column);
+
+        // ActionBar actionBar = getActivity().getActionBar();
 
         //actionBar.setDisplayOptions(ActionBar.DISPLAY_SHOW_HOME
-              //  | ActionBar.DISPLAY_SHOW_TITLE | ActionBar.DISPLAY_SHOW_CUSTOM);
+        //  | ActionBar.DISPLAY_SHOW_TITLE | ActionBar.DISPLAY_SHOW_CUSTOM);
 
         //inputSearch = (EditText) view.findViewById(R.id.inputSearch);
 
@@ -101,7 +96,7 @@ public final class FragNewsList extends Fragment {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 gotToDetail(position);
             }
-        } );
+        });
 
 /*
         inputSearch.addTextChangedListener(new TextWatcher() {
@@ -129,21 +124,11 @@ public final class FragNewsList extends Fragment {
     }
 
 
-    private boolean isNetworkAvailable() {
-        ConnectivityManager manager = (ConnectivityManager) getActivity().getSystemService(Context.CONNECTIVITY_SERVICE);
-        NetworkInfo n = manager.getActiveNetworkInfo();
-        return n != null && n.isAvailable();
-    }
-
     public void updateList(MenuItem item) {
-        if (isNetworkAvailable()) {
-           // item.setActionView(R.layout.progressbar);
-            //item.expandActionView();
-            //mItem = item;
-            get_json();
-        }
-
+        mItem = item;
+        get_json();
     }
+
     public interface onNewsItemSelectedListener {
         public void onNewsItemSelected(String value);
     }
@@ -153,7 +138,7 @@ public final class FragNewsList extends Fragment {
         if (listener != null) {
             ManagedEntity item = (ManagedEntity) mListItems.get(position);
 
-            listener.onNewsItemSelected((String)item.getValue("content"));
+            listener.onNewsItemSelected((String) item.getValue("content"));
         }
     }
 
@@ -172,13 +157,13 @@ public final class FragNewsList extends Fragment {
 
                 MySQLHelper db = new MySQLHelper(getActivity());
 
-                for (int i =0; i < jsonPosts.length(); i++) {
+                for (int i = 0; i < jsonPosts.length(); i++) {
                     ManagedEntity item = new ManagedEntity("News");
 
                     int news_id = jsonPosts.getJSONObject(i).getInt("id");
 
                     for (int j = 1; j < column.length; j++) {
-                       item.setValue(column[j],jsonPosts.getJSONObject(i).getString(column[j]));
+                        item.setValue(column[j], jsonPosts.getJSONObject(i).getString(column[j]));
                     }
                     item.setId(news_id);
 
@@ -191,19 +176,21 @@ public final class FragNewsList extends Fragment {
                 //  android.R.layout.simple_list_item_1, mListItems);
                 mListView.setAdapter(adapter);
 
-                if (mItem != null) {
-                    mItem.collapseActionView();
-                    mItem.setActionView(null);
-                }
-
-
 
             } catch (JSONException e) {
-                e.printStackTrace();
+                //e.printStackTrace();
+                //cancelMenuLoader();
             }
 
         }
+        cancelMenuLoader();
+    }
 
+    private void cancelMenuLoader() {
+        if (mItem != null) {
+            mItem.collapseActionView();
+            mItem.setActionView(null);
+        }
     }
     public void get_json() {
         AsyncHttpClient client = new AsyncHttpClient();
@@ -215,7 +202,7 @@ public final class FragNewsList extends Fragment {
                 try {
                     result = new JSONArray(response);
                 } catch (JSONException e) {
-                    e.printStackTrace();
+                    cancelMenuLoader();
                 }
                 handleResponse(result);
             }

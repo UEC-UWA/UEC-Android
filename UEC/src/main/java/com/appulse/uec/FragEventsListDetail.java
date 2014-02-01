@@ -13,11 +13,15 @@ import com.appulse.uec.helpers.DownloadImagesTask;
 import com.appulse.uec.helpers.ManagedEntity;
 import com.appulse.uec.helpers.MySQLHelper;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+
 /**
  * Created by Matt on 27/01/2014.
  */
-public class FragEventsListDetail  extends Fragment {
-   private int id;
+public class FragEventsListDetail extends Fragment {
+    private int id;
 
     String[] column;
 
@@ -32,7 +36,7 @@ public class FragEventsListDetail  extends Fragment {
 
         Resources res = getResources();
         column = res.getStringArray(R.array.events_entity);
-        event = db.getEntity("Events",id,column);
+        event = db.getEntity("Events", id, column);
 
         View view = inflater.inflate(R.layout.frag_event_detail, container, false);
 
@@ -44,10 +48,29 @@ public class FragEventsListDetail  extends Fragment {
         eventLocation.setText((String) event.getValue("location"));
 
         TextView eventStart = (TextView) view.findViewById(R.id.eventStartDate);
-        eventStart.setText((String) event.getValue("start_date"));
 
-        TextView eventEnd = (TextView) view.findViewById(R.id.eventEndDate);
-        eventEnd.setText((String) event.getValue("end_date"));
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd kk:mm:ss");
+        try {
+            long unix_time = dateFormat.parse((String)event.getValue("start_date")).getTime();
+            DateFormat df = new SimpleDateFormat("d MMMM yyyy K:mm a");
+            String date_formatted = df.format(unix_time);
+            eventStart.setText(date_formatted);
+
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+TextView eventEnd = (TextView) view.findViewById(R.id.eventEndDate);
+
+        SimpleDateFormat dateFormat2 = new SimpleDateFormat("yyyy-MM-dd kk:mm:ss");
+        try {
+            long unix_time = dateFormat2.parse((String)event.getValue("end_date")).getTime();
+            DateFormat df = new SimpleDateFormat("d MMMM yyyy K:mm a");
+            String date_formatted = df.format(unix_time);
+            eventEnd.setText(date_formatted);
+
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
 
         TextView eventAddress = (TextView) view.findViewById(R.id.eventAddress);
         eventAddress.setText((String) event.getValue("address"));

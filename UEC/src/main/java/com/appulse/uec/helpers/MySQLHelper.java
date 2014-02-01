@@ -32,7 +32,7 @@ public class MySQLHelper extends SQLiteOpenHelper {
         // SQL statement to create book table
         String CREATE_NEWS_TABLE = "CREATE TABLE News ( " +
                 "id INTEGER PRIMARY KEY AUTOINCREMENT, " +
-                "title TEXT, "+
+                "title TEXT, " +
                 "summary TEXT, " +
                 "content TEXT, " +
                 "category TEXT, " +
@@ -42,7 +42,7 @@ public class MySQLHelper extends SQLiteOpenHelper {
 
         String CREATE_COMMITTEE_TABLE = "CREATE TABLE Committee ( " +
                 "id INTEGER PRIMARY KEY AUTOINCREMENT, " +
-                "first_name TEXT, "+
+                "first_name TEXT, " +
                 "last_name TEXT, " +
                 "photo_path TEXT, " +
                 "position TEXT, " +
@@ -51,9 +51,9 @@ public class MySQLHelper extends SQLiteOpenHelper {
                 "summary TEXT" +
                 ")";
 
-        String CREATE_EVENTS_TABLE= "CREATE TABLE Events ( " +
+        String CREATE_EVENTS_TABLE = "CREATE TABLE Events ( " +
                 "id INTEGER PRIMARY KEY AUTOINCREMENT, " +
-                "location TEXT, "+
+                "location TEXT, " +
                 "start_date DATETIME, " +
                 "end_date DATETIME, " +
                 "name TEXT, " +
@@ -68,16 +68,16 @@ public class MySQLHelper extends SQLiteOpenHelper {
                 "facebook_link TEXT," +
                 "photo_path TEXT" +
                 ")";
-        String CREATE_SPONSORS_TABLE= "CREATE TABLE Sponsors ( " +
+        String CREATE_SPONSORS_TABLE = "CREATE TABLE Sponsors ( " +
                 "id INTEGER PRIMARY KEY AUTOINCREMENT, " +
-                "name TEXT, "+
+                "name TEXT, " +
                 "website_path TEXT, " +
                 "logo_path TEXT " +
                 ")";
 
-        String CREATE_TORQUES_TABLE= "CREATE TABLE Torques ( " +
+        String CREATE_TORQUES_TABLE = "CREATE TABLE Torques ( " +
                 "id INTEGER PRIMARY KEY AUTOINCREMENT, " +
-                "file_address TEXT, "+
+                "file_address TEXT, " +
                 "title TEXT, " +
                 "date DATETIME " +
                 ")";
@@ -107,14 +107,14 @@ public class MySQLHelper extends SQLiteOpenHelper {
      */
 
 
-    public void addEntity(String entity, ManagedEntity e,String[] columns) {
+    public void addEntity(String entity, ManagedEntity e, String[] columns) {
         SQLiteDatabase db = this.getWritableDatabase();
 
         ContentValues values = new ContentValues();
 
         int num_columns = columns.length;
 
-        values.put(columns[0],e.getId());
+        values.put(columns[0], e.getId());
 
         for (int i = 1; i < num_columns; i++) {
             Object value = e.getValue(columns[i]);
@@ -139,7 +139,7 @@ public class MySQLHelper extends SQLiteOpenHelper {
     public ManagedEntity getEntity(String entity, int id, String[] columns) {
         ManagedEntity results = null;
 
-        results  = new ManagedEntity(entity);
+        results = new ManagedEntity(entity);
 
         SQLiteDatabase db = this.getReadableDatabase();
 
@@ -147,7 +147,7 @@ public class MySQLHelper extends SQLiteOpenHelper {
                 db.query(entity, // a. table
                         columns, // b. column names
                         " id = ?", // c. selections
-                        new String[] { String.valueOf(id) }, // d. selections args
+                        new String[]{String.valueOf(id)}, // d. selections args
                         null, // e. group by
                         null, // f. having
                         null, // g. order by
@@ -162,7 +162,7 @@ public class MySQLHelper extends SQLiteOpenHelper {
         int num_columns = columns.length;
 
         for (int i = 1; i < num_columns; i++) {
-            results.setValue(columns[i],cursor.getString(i));
+            results.setValue(columns[i], cursor.getString(i));
         }
 
         return results;
@@ -170,18 +170,19 @@ public class MySQLHelper extends SQLiteOpenHelper {
 
     private String arrayToCommaList(String[] list) {
         StringBuilder result = new StringBuilder();
-        for(String string : list) {
+        for (String string : list) {
             result.append(string);
             result.append(",");
         }
-        return result.length() > 0 ? result.substring(0, result.length() - 1): "";
+        return result.length() > 0 ? result.substring(0, result.length() - 1) : "";
     }
+
     public List<Object> getAllForEntityWithSections(String entity, String[] columns, String section) {
         List<Object> list = new LinkedList<Object>();
 
         // 1. build the query
         String columnList = arrayToCommaList(columns);
-        String query = "SELECT " +columnList + " FROM " + entity +  " ORDER BY " + section;
+        String query = "SELECT " + columnList + " FROM " + entity + " ORDER BY " + section;
 
         // 2. get reference to writable DB
         SQLiteDatabase db = this.getWritableDatabase();
@@ -192,34 +193,34 @@ public class MySQLHelper extends SQLiteOpenHelper {
             do {
                 ManagedEntity results = null;
 
-                    results  =  new ManagedEntity(entity);
-                    results.setId(Integer.parseInt(cursor.getString(0)));
-                    int num_columns = columns.length;
-                    // Log.e("MysqlHelper","Cursor " + cursor.get);
-                    for (int i = 1; i < num_columns; i++) {
-                        if (columns[i].equals("date")) {
-                            String value = cursor.getString(i);
+                results = new ManagedEntity(entity);
+                results.setId(Integer.parseInt(cursor.getString(0)));
+                int num_columns = columns.length;
+                // Log.e("MysqlHelper","Cursor " + cursor.get);
+                for (int i = 1; i < num_columns; i++) {
+                    if (columns[i].equals("date")) {
+                        String value = cursor.getString(i);
 
-                            results.setValue(columns[i],Integer.valueOf(value));
-                        } else if (columns[i].equals(section)) {
-                            results.setValue(columns[i],cursor.getString(i));
-                            if (!cursor.getString(i).equals(previousSectionName)) {
-                                previousSectionName = cursor.getString(i);
-                                SectionSeparator s = new SectionSeparator();
-                                s.sectionName = previousSectionName;
+                        results.setValue(columns[i], Integer.valueOf(value));
+                    } else if (columns[i].equals(section)) {
+                        results.setValue(columns[i], cursor.getString(i));
+                        if (!cursor.getString(i).equals(previousSectionName)) {
+                            previousSectionName = cursor.getString(i);
+                            SectionSeparator s = new SectionSeparator();
+                            s.sectionName = previousSectionName;
 
-                                list.add(s);
-                            }
-                        } else {
-                            results.setValue(columns[i],cursor.getString(i));
+                            list.add(s);
                         }
-
-
+                    } else {
+                        results.setValue(columns[i], cursor.getString(i));
                     }
 
 
-                    // Add book to books
-                    list.add(results);
+                }
+
+
+                // Add book to books
+                list.add(results);
 
             } while (cursor.moveToNext());
         }
@@ -232,7 +233,7 @@ public class MySQLHelper extends SQLiteOpenHelper {
 
         // 1. build the query
         String columnList = arrayToCommaList(columns);
-        String query = "SELECT " +columnList + " FROM " + entity;
+        String query = "SELECT " + columnList + " FROM " + entity;
 
         // 2. get reference to writable DB
         SQLiteDatabase db = this.getWritableDatabase();
@@ -242,19 +243,19 @@ public class MySQLHelper extends SQLiteOpenHelper {
             do {
                 ManagedEntity results = null;
 
-                    results  = new ManagedEntity(entity);
-                    results.setId(Integer.parseInt(cursor.getString(0)));
-                    int num_columns = columns.length;
-                    // Log.e("MysqlHelper","Cursor " + cursor.get);
-                    for (int i = 1; i < num_columns; i++) {
+                results = new ManagedEntity(entity);
+                results.setId(Integer.parseInt(cursor.getString(0)));
+                int num_columns = columns.length;
+                // Log.e("MysqlHelper","Cursor " + cursor.get);
+                for (int i = 1; i < num_columns; i++) {
 
-                            results.setValue(columns[i],cursor.getString(i));
+                    results.setValue(columns[i], cursor.getString(i));
 
 
-                    }
+                }
 
-                    // Add book to books
-                    list.add(results);
+                // Add book to books
+                list.add(results);
 
             } while (cursor.moveToNext());
         }
@@ -270,7 +271,7 @@ public class MySQLHelper extends SQLiteOpenHelper {
 
         Resources res = Resources.getSystem();
 
-        int res_id = res.getIdentifier(entity + "_entity",null,null);
+        int res_id = res.getIdentifier(entity + "_entity", null, null);
 
         String[] column = res.getStringArray(res_id);
 
@@ -283,8 +284,8 @@ public class MySQLHelper extends SQLiteOpenHelper {
         // 3. updating row
         int i = db.update(entity, //table
                 values, // column/value
-                column[0]+" = ?", // selections
-                new String[] { String.valueOf(e.getId()) }); //selection args
+                column[0] + " = ?", // selections
+                new String[]{String.valueOf(e.getId())}); //selection args
 
         // 4. close
         db.close();
@@ -300,7 +301,7 @@ public class MySQLHelper extends SQLiteOpenHelper {
         // 2. delete
         db.delete(entity,
                 "id = ?",
-                new String[] { String.valueOf(id) });
+                new String[]{String.valueOf(id)});
 
         // 3. close
         db.close();
@@ -310,12 +311,11 @@ public class MySQLHelper extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getWritableDatabase();
 
         // 2. delete
-        db.delete(entity,"",null);
+        db.delete(entity, "", null);
 
         // 3. close
         db.close();
     }
-
 
 
 }

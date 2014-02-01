@@ -17,7 +17,7 @@ import com.appulse.uec.helpers.MySQLHelper;
 /**
  * Created by Matt on 27/01/2014.
  */
-public class FragCommitteeListDetail  extends Fragment {
+public class FragCommitteeListDetail extends Fragment {
     private int id;
 
     String[] column;
@@ -34,7 +34,7 @@ public class FragCommitteeListDetail  extends Fragment {
 
         Resources res = getResources();
         column = res.getStringArray(R.array.committee_entity);
-        committeeMember = db.getEntity("Committee",id,column);
+        committeeMember = db.getEntity("Committee", id, column);
 
         View view = inflater.inflate(R.layout.frag_committee_list_detail, container, false);
 

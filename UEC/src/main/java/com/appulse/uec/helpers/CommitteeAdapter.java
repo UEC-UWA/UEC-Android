@@ -7,7 +7,9 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
+
 import com.appulse.uec.R;
+
 import java.util.List;
 
 public class CommitteeAdapter extends BaseAdapter {
@@ -47,10 +49,10 @@ public class CommitteeAdapter extends BaseAdapter {
         View v = convertView;
 
 
-      //  ManagedEntity item = (ManagedEntity) listData.get(position);
+        //  ManagedEntity item = (ManagedEntity) listData.get(position);
         Object item_object = listData.get(position);
         if (item_object != null) {
-            if(item_object instanceof SectionSeparator){
+            if (item_object instanceof SectionSeparator) {
                 SectionSeparator item = (SectionSeparator) item_object;
                 v = layoutInflater.inflate(R.layout.frag_list_section_row, null);
 
@@ -61,15 +63,15 @@ public class CommitteeAdapter extends BaseAdapter {
                 v.setOnLongClickListener(null);
                 v.setLongClickable(false);
 
-            }else{
+            } else {
                 ManagedEntity item = (ManagedEntity) item_object;
                 v = layoutInflater.inflate(R.layout.frag_committee_list_row, null);
 
-                final TextView memberName = (TextView)v.findViewById(R.id.memberName);
+                final TextView memberName = (TextView) v.findViewById(R.id.memberName);
 
-                final TextView title = (TextView)v.findViewById(R.id.memberTitle);
+                final TextView title = (TextView) v.findViewById(R.id.memberTitle);
 
-                final ImageView image = (ImageView)v.findViewById(R.id.memberImage);
+                final ImageView image = (ImageView) v.findViewById(R.id.memberImage);
                 memberName.setText((String) item.getValue("first_name") + " " + item.getValue("last_name"));
 
                 title.setText((String) item.getValue("position"));

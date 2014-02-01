@@ -1,14 +1,10 @@
 package com.appulse.uec;
 
 
-import android.content.Context;
 import android.content.res.Resources;
-import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -35,26 +31,24 @@ import java.util.List;
 public final class FragEventList extends Fragment {
 
     /**
-     *
-     *  The Wrapper Fragment that host nested child fragments.
-     *
-     *  First child fragment is added in onActivityCreated() callback
-     *
-     *  More child fragments can be added at runtime by clicking 'Go Nesty!'
-     *  button.
-     *
+     * The Wrapper Fragment that host nested child fragments.
+     * <p/>
+     * First child fragment is added in onActivityCreated() callback
+     * <p/>
+     * More child fragments can be added at runtime by clicking 'Go Nesty!'
+     * button.
      */
 
     public static final String TAG = "FragNews";
 
     /**
-     *  Child Fragment Manager
+     * Child Fragment Manager
      */
     private FragmentManager fm;
 
     MenuItem mItem;
     /**
-     *  Fragment Tags
+     * Fragment Tags
      */
     private int fragCount = 1;
 
@@ -84,7 +78,6 @@ public final class FragEventList extends Fragment {
         column = res.getStringArray(R.array.events_entity);
 
         mListItems = db.getAllForEntityWithSections(ENTITY_NAME, column, "start_date");
-        updateList(null);
 
         mListView = (ListView) view.findViewById(R.id.eventsListView);
         adapter = new EventsAdapter(inflater.getContext(), mListItems);
@@ -94,7 +87,7 @@ public final class FragEventList extends Fragment {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 gotToDetail(position);
             }
-        } );
+        });
         return view;
     }
 
@@ -124,21 +117,11 @@ public final class FragEventList extends Fragment {
     }
 */
 
-    private boolean isNetworkAvailable() {
-        ConnectivityManager manager = (ConnectivityManager) getActivity().getSystemService(Context.CONNECTIVITY_SERVICE);
-        NetworkInfo n = manager.getActiveNetworkInfo();
-        return n != null && n.isAvailable();
-    }
-
     public void updateList(MenuItem item) {
-        if (isNetworkAvailable()) {
-           /// item.setActionView(R.layout.progressbar);
-            //item.expandActionView();
-          //  mItem = item;
-            get_json();
-        }
-
+        mItem = item;
+        get_json();
     }
+
     public interface onEventsItemSelectedListener {
         public void onEventItemSelected(int id);
     }
@@ -154,7 +137,7 @@ public final class FragEventList extends Fragment {
     }
 
     public static void setOnMySignalListener(onEventsItemSelectedListener listener) {
-       FragEventList.listener = listener;
+        FragEventList.listener = listener;
     }
 
     public void handleResponse(JSONArray jsonPosts) {
@@ -168,7 +151,7 @@ public final class FragEventList extends Fragment {
 
                 MySQLHelper db = new MySQLHelper(getActivity());
 
-                for (int i =0; i < jsonPosts.length(); i++) {
+                for (int i = 0; i < jsonPosts.length(); i++) {
                     ManagedEntity item = new ManagedEntity("Events");
 
                     int id = jsonPosts.getJSONObject(i).getInt("id");
@@ -180,13 +163,11 @@ public final class FragEventList extends Fragment {
                     item.setId(id);
 
                     db.addEntity(ENTITY_NAME, item, column);
- 
-
 
 
                 }
 
-                List list =  db.getAllForEntityWithSections(ENTITY_NAME, column, "start_date");
+                List list = db.getAllForEntityWithSections(ENTITY_NAME, column, "start_date");
 
                 adapter = new EventsAdapter(getActivity(), list);
                 mListView.setAdapter(adapter);
@@ -197,14 +178,15 @@ public final class FragEventList extends Fragment {
                 }
 
 
-
             } catch (JSONException e) {
-                e.printStackTrace();
+
             }
 
         }
+        cancelMenuLoader();
 
     }
+
     public void get_json() {
         AsyncHttpClient client = new AsyncHttpClient();
 
@@ -215,10 +197,17 @@ public final class FragEventList extends Fragment {
                 try {
                     result = new JSONArray(response);
                 } catch (JSONException e) {
-                    e.printStackTrace();
+                    cancelMenuLoader();
                 }
                 handleResponse(result);
             }
         });
     }
+    private void cancelMenuLoader() {
+        if (mItem != null) {
+            mItem.collapseActionView();
+            mItem.setActionView(null);
+        }
+    }
+
 }

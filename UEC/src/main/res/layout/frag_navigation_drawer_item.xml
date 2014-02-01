@@ -3,27 +3,29 @@
     android:layout_width="fill_parent"
     android:layout_height="wrap_content"
     android:minHeight="50dp"
-    android:orientation="horizontal" >
+    android:paddingLeft="5dp"
+    android:orientation="horizontal"
+    android:layout_centerVertical="true">
 
     <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/image"
-        android:layout_alignParentTop="true"
+        android:layout_centerVertical="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:paddingRight="5dp"
         android:paddingLeft="5dp"
-        android:paddingTop="5dp"/>
+       />
 
     <TextView
         android:id="@+id/title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:paddingLeft="5dp"
-        android:paddingTop="5dp"
+        android:layout_centerVertical="true"
         android:textStyle="bold"
         android:typeface="sans"
-        android:layout_alignParentTop="true"
+
         android:layout_toRightOf="@id/image"/>
 </RelativeLayout>

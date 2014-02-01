@@ -11,7 +11,9 @@ import android.widget.Button;
 /**
  * Created by Matt on 27/01/2014.
  */
-public class FragAboutApp  extends Fragment {
+public class FragAboutApp extends Fragment {
+
+    private static onAboutAppVersionListener listener;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
@@ -22,7 +24,7 @@ public class FragAboutApp  extends Fragment {
             public void onClick(View v) {
                 Intent intent = new Intent(Intent.ACTION_SEND);
                 intent.setType("plain/text");
-                intent.putExtra(Intent.EXTRA_EMAIL, new String[] { "some@email.address" });
+                intent.putExtra(Intent.EXTRA_EMAIL, new String[]{"some@email.address"});
                 intent.putExtra(Intent.EXTRA_SUBJECT, "subject");
                 intent.putExtra(Intent.EXTRA_TEXT, "mail body");
                 startActivity(Intent.createChooser(intent, ""));
@@ -30,8 +32,26 @@ public class FragAboutApp  extends Fragment {
         });
 
 
+        final Button buttonVersion = (Button) view.findViewById(R.id.versionButton);
+        buttonVersion.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+               if (listener != null) {
+                   listener.onAboutAppVersion();
+               }
+            }
+        });
 
         return view;
     }
+
+    public interface onAboutAppVersionListener {
+        public void onAboutAppVersion();
+    }
+
+    public static void setOnMySignalListener(onAboutAppVersionListener listener) {
+        FragAboutApp.listener = listener;
+    }
+
+
 
 }

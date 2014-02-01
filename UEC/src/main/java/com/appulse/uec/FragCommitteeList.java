@@ -1,9 +1,6 @@
 package com.appulse.uec;
 
-import android.content.Context;
 import android.content.res.Resources;
-import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -56,37 +53,25 @@ public class FragCommitteeList extends Fragment {
         Resources res = getResources();
         column = res.getStringArray(R.array.committee_entity);
 
-        updateList(null);
-
         MySQLHelper db = new MySQLHelper(getActivity());
-        mListItems = db.getAllForEntityWithSections(ENTITY_NAME,column,"subcommittee");
-        adapter = new CommitteeAdapter(inflater.getContext(),mListItems);
+        mListItems = db.getAllForEntityWithSections(ENTITY_NAME, column, "subcommittee");
+        adapter = new CommitteeAdapter(inflater.getContext(), mListItems);
         listView.setAdapter(adapter);
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 gotToDetail(position);
             }
-        } );
+        });
 
         return view;
     }
 
-    private boolean isNetworkAvailable() {
-        ConnectivityManager manager = (ConnectivityManager) getActivity().getSystemService(Context.CONNECTIVITY_SERVICE);
-        NetworkInfo n = manager.getActiveNetworkInfo();
-        return n != null && n.isAvailable();
-    }
-
     public void updateList(MenuItem item) {
-        if (isNetworkAvailable()) {
-           // item.setActionView(R.layout.progressbar);
-            //item.expandActionView();
-           // mItem = item;
-            get_json();
-        }
-
+        mItem = item;
+        get_json();
     }
+
     public interface onCommitteeItemSelectedListener {
         public void onCommitteeItemSelected(int id);
     }
@@ -99,6 +84,7 @@ public class FragCommitteeList extends Fragment {
             listener.onCommitteeItemSelected(item.getId());
         }
     }
+
     public static void setOnMySignalListener(onCommitteeItemSelectedListener listener) {
         FragCommitteeList.listener = listener;
     }
@@ -114,7 +100,7 @@ public class FragCommitteeList extends Fragment {
 
                 MySQLHelper db = new MySQLHelper(getActivity());
 
-                for (int i =0; i < jsonPosts.length(); i++) {
+                for (int i = 0; i < jsonPosts.length(); i++) {
                     ManagedEntity item = new ManagedEntity("Committee");
 
                     int news_id = jsonPosts.getJSONObject(i).getInt("id");
@@ -122,18 +108,15 @@ public class FragCommitteeList extends Fragment {
                     for (int j = 1; j < column.length; j++) {
                         if (column[j].equals("date")) {
                             String clean_value = jsonPosts.getJSONObject(i).getString(column[j]);
-                            clean_value = clean_value.substring(5,clean_value.length());
-                            item.setValue(column[j],Integer.valueOf(clean_value));
+                            clean_value = clean_value.substring(5, clean_value.length());
+                            item.setValue(column[j], Integer.valueOf(clean_value));
                         } else {
-                            item.setValue(column[j],jsonPosts.getJSONObject(i).getString(column[j]));
+                            item.setValue(column[j], jsonPosts.getJSONObject(i).getString(column[j]));
                         }
                     }
                     item.setId(news_id);
 
                     db.addEntity(ENTITY_NAME, item, column);
-
-
-
 
 
                 }
@@ -150,14 +133,14 @@ public class FragCommitteeList extends Fragment {
                 }
 
 
-
             } catch (JSONException e) {
-                e.printStackTrace();
+                //e.printStackTrace();
             }
 
         }
-
+        cancelMenuLoader();
     }
+
     public void get_json() {
         AsyncHttpClient client = new AsyncHttpClient();
 
@@ -168,11 +151,17 @@ public class FragCommitteeList extends Fragment {
                 try {
                     result = new JSONArray(response);
                 } catch (JSONException e) {
-                    e.printStackTrace();
+                    cancelMenuLoader();
                 }
                 handleResponse(result);
             }
         });
+    }
+    private void cancelMenuLoader() {
+        if (mItem != null) {
+            mItem.collapseActionView();
+            mItem.setActionView(null);
+        }
     }
 }
 

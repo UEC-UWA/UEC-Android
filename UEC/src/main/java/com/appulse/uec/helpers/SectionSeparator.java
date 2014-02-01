@@ -6,6 +6,7 @@ package com.appulse.uec.helpers;
 public class SectionSeparator {
     public String sectionName;
 
-    public SectionSeparator() {}
+    public SectionSeparator() {
+    }
 
 }

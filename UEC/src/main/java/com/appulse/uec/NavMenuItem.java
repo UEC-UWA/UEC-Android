@@ -8,6 +8,7 @@ public class NavMenuItem {
     public int image;
     public String title;
 
-    public NavMenuItem() {}
+    public NavMenuItem() {
+    }
 
 }

@@ -1,10 +1,7 @@
 package com.appulse.uec;
 
-import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
-import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -36,26 +33,24 @@ import java.util.List;
 public final class FragAbout extends Fragment {
 
     /**
-     *
-     *  The Wrapper Fragment that host nested child fragments.
-     *
-     *  First child fragment is added in onActivityCreated() callback
-     *
-     *  More child fragments can be added at runtime by clicking 'Go Nesty!'
-     *  button.
-     *
+     * The Wrapper Fragment that host nested child fragments.
+     * <p/>
+     * First child fragment is added in onActivityCreated() callback
+     * <p/>
+     * More child fragments can be added at runtime by clicking 'Go Nesty!'
+     * button.
      */
 
     public static final String TAG = "FragNews";
 
     /**
-     *  Child Fragment Manager
+     * Child Fragment Manager
      */
     private FragmentManager fm;
 
     MenuItem mItem;
     /**
-     *  Fragment Tags
+     * Fragment Tags
      */
     private int fragCount = 1;
 
@@ -98,9 +93,9 @@ public final class FragAbout extends Fragment {
         if (mListItems == null) {
             items = new String[0];
         } else {
-                items = new String[mListItems.size()];
+            items = new String[mListItems.size()];
             for (int i = 0; i < mListItems.size(); i++) {
-               ManagedEntity result = (ManagedEntity) mListItems.get(i);
+                ManagedEntity result = (ManagedEntity) mListItems.get(i);
                 items[i] = (String) result.getValue("name");
             }
         }
@@ -111,11 +106,11 @@ public final class FragAbout extends Fragment {
 
         mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-               ManagedEntity item = (ManagedEntity) mListItems.get(position);
-                Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse((String)item.getValue("website_path")));
+                ManagedEntity item = (ManagedEntity) mListItems.get(position);
+                Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse((String) item.getValue("website_path")));
                 startActivity(browserIntent);
             }
-        } );
+        });
 
         Button aboutUEC = (Button) view.findViewById(R.id.AboutUECButton);
         aboutUEC.setOnClickListener(new View.OnClickListener() {
@@ -134,26 +129,18 @@ public final class FragAbout extends Fragment {
         return view;
     }
 
-    private boolean isNetworkAvailable() {
-        ConnectivityManager manager = (ConnectivityManager) getActivity().getSystemService(Context.CONNECTIVITY_SERVICE);
-        NetworkInfo n = manager.getActiveNetworkInfo();
-        return n != null && n.isAvailable();
-    }
 
     public void updateList(MenuItem item) {
-        if (isNetworkAvailable()) {
-            //item.setActionView(R.layout.progressbar);
-          //  item.expandActionView();
-           // mItem = item;
-            get_json();
-        }
-
+        mItem = item;
+        get_json();
     }
+
+
     public interface onAboutListener {
         public void onAboutUECSelected();
+
         public void onAboutAppSelected();
     }
-
 
 
     public static void setOnMySignalListener(onAboutListener listener) {
@@ -171,21 +158,18 @@ public final class FragAbout extends Fragment {
 
                 MySQLHelper db = new MySQLHelper(getActivity());
 
-                for (int i =0; i < jsonPosts.length(); i++) {
+                for (int i = 0; i < jsonPosts.length(); i++) {
                     ManagedEntity item = new ManagedEntity("Events");
 
                     int id = jsonPosts.getJSONObject(i).getInt("id");
 
                     for (int j = 1; j < column.length; j++) {
-                      item.setValue(column[j],jsonPosts.getJSONObject(i).getString(column[j]));
+                        item.setValue(column[j], jsonPosts.getJSONObject(i).getString(column[j]));
 
                     }
                     item.setId(id);
 
                     db.addEntity(ENTITY_NAME, item, column);
-
-
-
 
 
                 }
@@ -206,21 +190,21 @@ public final class FragAbout extends Fragment {
                 }
 
 
-
                 if (mItem != null) {
                     mItem.collapseActionView();
                     mItem.setActionView(null);
                 }
 
 
-
             } catch (JSONException e) {
-                e.printStackTrace();
+
             }
 
         }
+        cancelMenuLoader();
 
     }
+
     public void get_json() {
         AsyncHttpClient client = new AsyncHttpClient();
 
@@ -231,10 +215,16 @@ public final class FragAbout extends Fragment {
                 try {
                     result = new JSONArray(response);
                 } catch (JSONException e) {
-                    e.printStackTrace();
+                    cancelMenuLoader();
                 }
                 handleResponse(result);
             }
         });
+    }
+    private void cancelMenuLoader() {
+        if (mItem != null) {
+            mItem.collapseActionView();
+            mItem.setActionView(null);
+        }
     }
 }
