@@ -6,6 +6,7 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -26,6 +27,9 @@ public class FragEventsListDetail extends Fragment {
     String[] column;
 
     private ManagedEntity event;
+
+    private static onEventMapListener listener;
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -84,6 +88,24 @@ TextView eventEnd = (TextView) view.findViewById(R.id.eventEndDate);
         DownloadImagesTask task = new DownloadImagesTask();
         task.execute(image);
 
+
+        Button eventMap = (Button) view.findViewById(R.id.buttonMap);
+        eventMap.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                listener.onMapButtonSelected();
+            }
+        });
         return view;
     }
+
+    public interface onEventMapListener {
+        public void onMapButtonSelected();
+
+    }
+
+
+    public static void setOnMySignalListener(onEventMapListener listener) {
+        FragEventsListDetail.listener = listener;
+    }
+
 }

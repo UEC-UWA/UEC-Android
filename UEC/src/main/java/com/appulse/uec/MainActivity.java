@@ -18,7 +18,8 @@ public class MainActivity extends ActionBarActivity
         FragEventList.onEventsItemSelectedListener,
         FragTorques.onTorquesListener,
         FragCommitteeList.onCommitteeItemSelectedListener,
-        FragAboutApp.onAboutAppVersionListener
+        FragAboutApp.onAboutAppVersionListener,
+        FragEventsListDetail.onEventMapListener
 
 {
 
@@ -68,7 +69,7 @@ public class MainActivity extends ActionBarActivity
         FragTorques.setOnMySignalListener(this);
         FragCommitteeList.setOnMySignalListener(this);
         FragAboutApp.setOnMySignalListener(this);
-
+        FragEventsListDetail.setOnMySignalListener(this);
 
         if (mNavigationDrawerFragment != null) {
             //mNavigationDrawerFragment.showIndicator(false);
@@ -336,4 +337,18 @@ public class MainActivity extends ActionBarActivity
 
         addFragmentToStack(torqueDetail);
     }
+
+    @Override
+    public void onMapButtonSelected() {
+        addFragmentToStack(new FragEventMap());
+    }
+
+    /*
+
+    mMapFragment = MapFragment.newInstance();
+ FragmentTransaction fragmentTransaction =
+         getFragmentManager().beginTransaction();
+ fragmentTransaction.add(R.id.my_container, mMapFragment);
+ fragmentTransaction.commit();
+     */
 }

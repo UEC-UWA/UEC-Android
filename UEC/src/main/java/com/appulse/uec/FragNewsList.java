@@ -80,7 +80,7 @@ public final class FragNewsList extends Fragment {
 
         //  db.deleteAllForEntity(ENTITY_NAME);
         mListItems = db.getAllForEntity(ENTITY_NAME, column);
-
+       // mListItems.add(0, new SearchRow());
         // ActionBar actionBar = getActivity().getActionBar();
 
         //actionBar.setDisplayOptions(ActionBar.DISPLAY_SHOW_HOME
@@ -170,7 +170,8 @@ public final class FragNewsList extends Fragment {
                     db.addEntity(ENTITY_NAME, item, column);
                 }
 
-                List<ManagedEntity> list = db.getAllForEntity(ENTITY_NAME, column);
+                List list = db.getAllForEntity(ENTITY_NAME, column);
+              //  list.add(0, new SearchRow());
                 adapter = new NewsAdapter(getActivity(), list);
                 //  adapter = new ArrayAdapter<String>(getActivity(),
                 //  android.R.layout.simple_list_item_1, mListItems);
