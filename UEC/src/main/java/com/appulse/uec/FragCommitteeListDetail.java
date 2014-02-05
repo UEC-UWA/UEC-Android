@@ -10,9 +10,9 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.appulse.uec.helpers.DownloadImagesTask;
 import com.appulse.uec.helpers.ManagedEntity;
 import com.appulse.uec.helpers.MySQLHelper;
+import com.nostra13.universalimageloader.core.ImageLoader;
 
 /**
  * Created by Matt on 27/01/2014.
@@ -21,6 +21,8 @@ public class FragCommitteeListDetail extends Fragment {
     private int id;
 
     String[] column;
+
+    private ImageLoader imageLoader;
 
     private ManagedEntity committeeMember;
 
@@ -55,9 +57,8 @@ public class FragCommitteeListDetail extends Fragment {
 
         ImageView image = (ImageView) view.findViewById(R.id.memberImage);
 
-        image.setTag(committeeMember.getValue("photo_path"));
-        DownloadImagesTask task = new DownloadImagesTask();
-        task.execute(image);
+        imageLoader =  ImageLoader.getInstance();
+        imageLoader.displayImage((String) committeeMember.getValue("photo_path"), image);
         return view;
     }
 }

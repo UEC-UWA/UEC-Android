@@ -9,6 +9,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.appulse.uec.R;
+import com.nostra13.universalimageloader.core.ImageLoader;
 
 import java.util.List;
 
@@ -18,12 +19,14 @@ public class CommitteeAdapter extends BaseAdapter {
 
     private List data;
 
+    private ImageLoader imageLoader;
     private LayoutInflater layoutInflater;
 
     public CommitteeAdapter(Context context, List listData) {
         this.listData = listData;
         layoutInflater = LayoutInflater.from(context);
         this.data = listData;
+        imageLoader =  ImageLoader.getInstance();
 
     }
 
@@ -75,10 +78,10 @@ public class CommitteeAdapter extends BaseAdapter {
                 memberName.setText((String) item.getValue("first_name") + " " + item.getValue("last_name"));
 
                 title.setText((String) item.getValue("position"));
-
-                image.setTag(item.getValue("photo_path"));
-                DownloadImagesTask task = new DownloadImagesTask();
-                task.execute(image);
+                imageLoader.displayImage((String)item.getValue("photo_path"), image);
+              //  image.setTag(item.getValue("photo_path"));
+                //DownloadImagesTask task = new DownloadImagesTask();
+                //task.execute(image);
             }
         }
         return v;

@@ -3,6 +3,7 @@ package com.appulse.uec;
 import android.content.res.Resources;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.view.MenuItemCompat;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -128,8 +129,7 @@ public class FragCommitteeList extends Fragment {
                 listView.setAdapter(adapter);
 
                 if (mItem != null) {
-                    mItem.collapseActionView();
-                    mItem.setActionView(null);
+                    //cancelMenuLoader();
                 }
 
 
@@ -159,8 +159,8 @@ public class FragCommitteeList extends Fragment {
     }
     private void cancelMenuLoader() {
         if (mItem != null) {
-            mItem.collapseActionView();
-            mItem.setActionView(null);
+            MenuItemCompat.collapseActionView(mItem);
+            MenuItemCompat.setActionView(mItem,null);
         }
     }
 }

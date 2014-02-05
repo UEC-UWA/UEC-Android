@@ -4,6 +4,7 @@ import android.content.res.Resources;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+import android.support.v4.view.MenuItemCompat;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
@@ -189,8 +190,20 @@ public final class FragNewsList extends Fragment {
 
     private void cancelMenuLoader() {
         if (mItem != null) {
-            mItem.collapseActionView();
-            mItem.setActionView(null);
+
+           // MenuItem menuItemRefresh = mItem;
+
+           // MenuItemCompat.collapseActionView(mItem);
+           // menuItemRefresh = MenuItemCompat.setActionView(menuItemRefresh, R.layout.progressbar);
+           // MenuItemCompat.setA
+            // MenuItemCompat.setActionView(mItem, R.layout.progressbar);
+
+            MenuItemCompat.collapseActionView(mItem);
+            MenuItemCompat.setActionView(mItem,null);
+
+            //MenuItemCompat.collapseActionView(mItem);
+           // MenuItemCompat.collapseActionView(mItem);
+           // MenuItemCompat.setActionView(null);
         }
     }
     public void get_json() {

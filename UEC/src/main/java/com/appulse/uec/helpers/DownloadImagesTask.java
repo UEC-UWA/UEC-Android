@@ -21,7 +21,9 @@ public class DownloadImagesTask extends AsyncTask<ImageView, Void, Bitmap> {
 
     @Override
     protected void onPostExecute(Bitmap result) {
-        imageView.setImageBitmap(result);
+        if (result != null) {
+         imageView.setImageBitmap(result);
+        }
     }
 
     private Bitmap download_Image(String url) {
@@ -36,7 +38,8 @@ public class DownloadImagesTask extends AsyncTask<ImageView, Void, Bitmap> {
                 return bmp;
 
         } catch (Exception e) {
+            //return null;
         }
-        return bmp;
+        return null;
     }
 }

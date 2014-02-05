@@ -6,6 +6,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+import android.support.v4.view.MenuItemCompat;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -191,8 +192,7 @@ public final class FragAbout extends Fragment {
 
 
                 if (mItem != null) {
-                    mItem.collapseActionView();
-                    mItem.setActionView(null);
+                    cancelMenuLoader();
                 }
 
 
@@ -223,8 +223,8 @@ public final class FragAbout extends Fragment {
     }
     private void cancelMenuLoader() {
         if (mItem != null) {
-            mItem.collapseActionView();
-            mItem.setActionView(null);
+            MenuItemCompat.collapseActionView(mItem);
+            MenuItemCompat.setActionView(mItem,null);
         }
     }
 }

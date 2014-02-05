@@ -10,9 +10,9 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.appulse.uec.helpers.DownloadImagesTask;
 import com.appulse.uec.helpers.ManagedEntity;
 import com.appulse.uec.helpers.MySQLHelper;
+import com.nostra13.universalimageloader.core.ImageLoader;
 
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -30,7 +30,7 @@ public class FragEventsListDetail extends Fragment {
 
     private static onEventMapListener listener;
 
-
+    private ImageLoader imageLoader;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
@@ -63,7 +63,8 @@ public class FragEventsListDetail extends Fragment {
         } catch (ParseException e) {
             e.printStackTrace();
         }
-TextView eventEnd = (TextView) view.findViewById(R.id.eventEndDate);
+
+        TextView eventEnd = (TextView) view.findViewById(R.id.eventEndDate);
 
         SimpleDateFormat dateFormat2 = new SimpleDateFormat("yyyy-MM-dd kk:mm:ss");
         try {
@@ -84,9 +85,11 @@ TextView eventEnd = (TextView) view.findViewById(R.id.eventEndDate);
 
         ImageView image = (ImageView) view.findViewById(R.id.eventImage);
 
-        image.setTag(event.getValue("photo_path"));
-        DownloadImagesTask task = new DownloadImagesTask();
-        task.execute(image);
+        imageLoader =  ImageLoader.getInstance();
+        imageLoader.displayImage((String) event.getValue("photo_path"), image);
+        //image.setTag(event.getValue("photo_path"));
+       // DownloadImagesTask task = new DownloadImagesTask();
+       // task.execute(image);
 
 
         Button eventMap = (Button) view.findViewById(R.id.buttonMap);

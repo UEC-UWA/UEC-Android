@@ -9,6 +9,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.appulse.uec.R;
+import com.nostra13.universalimageloader.core.ImageLoader;
 
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -19,7 +20,7 @@ import java.util.List;
 public class EventsAdapter extends BaseAdapter {
 
     private List listData;
-
+protected ImageLoader imageLoader;
     private List data;
 
     private LayoutInflater layoutInflater;
@@ -28,6 +29,8 @@ public class EventsAdapter extends BaseAdapter {
         this.listData = listData;
         layoutInflater = LayoutInflater.from(context);
         this.data = listData;
+        imageLoader =  ImageLoader.getInstance();
+
     }
 
     @Override
@@ -97,9 +100,11 @@ public class EventsAdapter extends BaseAdapter {
             }
             String image = (String) item.getValue("photo_path");
             if (image != null && !image.equals("")) {
-                holder.image.setTag(image);
-                DownloadImagesTask t = new DownloadImagesTask();
-                t.execute(holder.image);
+               // holder.image.setTag(image);
+               // DownloadImagesTask t = new DownloadImagesTask();
+
+                imageLoader.displayImage(image, holder.image);
+                //t.execute(holder.image);
             }
         }
         return convertView;

@@ -6,12 +6,17 @@ import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+import android.support.v4.view.MenuItemCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
+
+import com.nostra13.universalimageloader.core.DisplayImageOptions;
+import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 
 public class MainActivity extends ActionBarActivity
         implements NavigationDrawerFragment.NavigationDrawerCallbacks, FragNewsList.onNewsItemSelectedListener, FragAbout.onAboutListener,
@@ -22,6 +27,8 @@ public class MainActivity extends ActionBarActivity
         FragEventsListDetail.onEventMapListener
 
 {
+
+    final String PREFS_NAME = "MyPrefsFile";
 
     /**
      * Fragment managing the behaviors, interactions and presentation of the navigation drawer.
@@ -73,9 +80,30 @@ public class MainActivity extends ActionBarActivity
 
         if (mNavigationDrawerFragment != null) {
             //mNavigationDrawerFragment.showIndicator(false);
-
         }
 
+        DisplayImageOptions defaultOptions = new DisplayImageOptions.Builder()
+        .cacheInMemory(true)
+        .cacheOnDisc(true)
+        .build();
+
+        ImageLoaderConfiguration config = new ImageLoaderConfiguration.Builder(getApplicationContext())
+        .defaultDisplayImageOptions(defaultOptions)
+        .build();
+        ImageLoader.getInstance().init(config);
+
+        if (savedInstanceState != null) {
+           FragmentManager fragmentManager = getSupportFragmentManager();
+            if (fragmentManager.getBackStackEntryCount() == 0 && mNavigationDrawerFragment != null) {
+                mNavigationDrawerFragment.showIndicator(true);
+                showRefresh();
+            } else {
+                getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+                mNavigationDrawerFragment.showIndicator(false);
+                hideRefresh();
+            }
+        // Do it on Application start
+        }
     }
 
     @Override
@@ -91,6 +119,8 @@ public class MainActivity extends ActionBarActivity
                 .replace(R.id.container, fragment)
                 .commit();
         mTitle = getTitle(position);
+
+       // while (fragmentManager.getBackStackEntryCount() != 0) fragmentManager.popBackStack();
         setTitle(mTitle);
     }
 
@@ -145,6 +175,17 @@ public class MainActivity extends ActionBarActivity
             getMenuInflater().inflate(R.menu.main, menu);
             restoreActionBar();
             mMenu = menu;
+
+            FragmentManager fragmentManager = getSupportFragmentManager();
+            if (fragmentManager.getBackStackEntryCount() == 0 && mNavigationDrawerFragment != null) {
+                mNavigationDrawerFragment.showIndicator(true);
+                showRefresh();
+            } else {
+                getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+                mNavigationDrawerFragment.showIndicator(false);
+                hideRefresh();
+            }
+
             return super.onCreateOptionsMenu(menu);
         }
         return super.onCreateOptionsMenu(menu);
@@ -188,8 +229,11 @@ public class MainActivity extends ActionBarActivity
             return true;
         } else if (id == R.id.action_refresh) {
             if (isNetworkAvailable()) {
-                item.setActionView(R.layout.progressbar);
-                item.expandActionView();
+              //  item.setActionView(R.layout.progressbar);
+                //item.expandActionView();
+
+                MenuItem menuItemRefresh = item;
+                menuItemRefresh = MenuItemCompat.setActionView(menuItemRefresh, R.layout.progressbar);
 
                 if (currentPosition == 1) {
                     FragAbout fragmentToUpdate = (FragAbout) currentFragment;
@@ -342,6 +386,13 @@ public class MainActivity extends ActionBarActivity
     public void onMapButtonSelected() {
         addFragmentToStack(new FragEventMap());
     }
+
+    public boolean isFirstLaunch() {
+       return true;
+        //SharedPreferences settings = getSharedPreferences(PREFS_NAME, 0);
+       // return settings.getBoolean("isOpComplete", false);
+    }
+
 
     /*
 

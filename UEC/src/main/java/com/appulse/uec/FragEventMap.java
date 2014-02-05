@@ -53,7 +53,9 @@ public class FragEventMap extends Fragment {
     }
 
     private void setUpMap() {
-        mMap.addMarker(new MarkerOptions().position(new LatLng(-31.944592, 115.874954)).title("Marker"));
+        if (mMap != null)  {
+         mMap.addMarker(new MarkerOptions().position(new LatLng(-31.944592, 115.874954)).title("Marker"));
+        }
     }
 
     @Override

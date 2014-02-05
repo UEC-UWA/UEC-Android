@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="com.example.app.MainActivity" >
     <item android:id="@+id/action_refresh"
-        android:title="@string/action_example"
+        android:title="Refresh"
         app:showAsAction="withText|ifRoom"
         android:icon="@drawable/ic_action_refresh"/>
 
