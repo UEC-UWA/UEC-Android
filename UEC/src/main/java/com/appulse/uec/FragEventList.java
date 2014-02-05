@@ -89,6 +89,8 @@ public final class FragEventList extends Fragment {
                 gotToDetail(position);
             }
         });
+        db.close();
+
         return view;
     }
 
@@ -177,10 +179,13 @@ public final class FragEventList extends Fragment {
                     cancelMenuLoader();
                 }
 
+                db.close();
+
 
             } catch (JSONException e) {
 
             }
+
 
         }
         cancelMenuLoader();

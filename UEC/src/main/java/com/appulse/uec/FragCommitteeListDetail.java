@@ -59,6 +59,8 @@ public class FragCommitteeListDetail extends Fragment {
 
         imageLoader =  ImageLoader.getInstance();
         imageLoader.displayImage((String) committeeMember.getValue("photo_path"), image);
+        db.close();
+
         return view;
     }
 }

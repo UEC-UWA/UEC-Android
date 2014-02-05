@@ -126,6 +126,7 @@ public final class FragAbout extends Fragment {
                 listener.onAboutAppSelected();
             }
         });
+        db.close();
 
         return view;
     }
@@ -185,15 +186,17 @@ public final class FragAbout extends Fragment {
                     for (int i = 0; i < list.size(); i++) {
                         ManagedEntity result = (ManagedEntity) mListItems.get(i);
                         items[i] = (String) result.getValue("name");
-                        adapter = new ArrayAdapter(getActivity(), android.R.layout.simple_list_item_1, items);
-                        mListView.setAdapter(adapter);
                     }
+                    adapter = new ArrayAdapter(getActivity(), android.R.layout.simple_list_item_1, items);
+                    mListView.setAdapter(adapter);
+
                 }
 
 
                 if (mItem != null) {
                     cancelMenuLoader();
                 }
+                db.close();
 
 
             } catch (JSONException e) {
@@ -201,6 +204,7 @@ public final class FragAbout extends Fragment {
             }
 
         }
+
         cancelMenuLoader();
 
     }

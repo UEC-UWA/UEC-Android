@@ -109,6 +109,7 @@ public final class FragTorques extends Fragment {
             }
         });
 
+        db.close();
 
         return view;
     }
@@ -191,12 +192,14 @@ public final class FragTorques extends Fragment {
                     //mItem.setActionView(null);
                 }
 
+                db.close();
 
             } catch (JSONException e) {
 
             }
 
         }
+
         cancelMenuLoader();
 
     }

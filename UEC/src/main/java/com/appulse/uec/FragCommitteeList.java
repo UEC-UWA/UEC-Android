@@ -65,6 +65,8 @@ public class FragCommitteeList extends Fragment {
             }
         });
 
+        db.close();
+
         return view;
     }
 
@@ -132,6 +134,7 @@ public class FragCommitteeList extends Fragment {
                     //cancelMenuLoader();
                 }
 
+                db.close();
 
             } catch (JSONException e) {
                 //e.printStackTrace();

@@ -237,19 +237,20 @@ public class MainActivity extends ActionBarActivity
 
                 if (currentPosition == 1) {
                     FragAbout fragmentToUpdate = (FragAbout) currentFragment;
-                    fragmentToUpdate.updateList(item);
+                    if (fragmentToUpdate != null)fragmentToUpdate.updateList(item);
                 } else if (currentPosition == 2) {
                     FragEventList fragmentToUpdate = (FragEventList) currentFragment;
-                    fragmentToUpdate.updateList(item);
+                    if (fragmentToUpdate != null) fragmentToUpdate.updateList(item);
                 } else if (currentPosition == 3) {
                     FragCommitteeList fragmentToUpdate = (FragCommitteeList) currentFragment;
-                    fragmentToUpdate.updateList(item);
+                    if (fragmentToUpdate != null)fragmentToUpdate.updateList(item);
                 } else if (currentPosition == 4) {
                     FragTorques fragmentToUpdate = (FragTorques) currentFragment;
-                    fragmentToUpdate.updateList(item);
+
+                    if (fragmentToUpdate != null)  fragmentToUpdate.updateList(item);
                 } else {
                    FragNewsList fragmentToUpdate = (FragNewsList) currentFragment;
-                    fragmentToUpdate.updateList(item);
+                    if (fragmentToUpdate != null) fragmentToUpdate.updateList(item);
                 }
 
             }

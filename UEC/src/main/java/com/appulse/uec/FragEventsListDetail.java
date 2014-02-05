@@ -98,6 +98,8 @@ public class FragEventsListDetail extends Fragment {
                 listener.onMapButtonSelected();
             }
         });
+        db.close();
+
         return view;
     }
 

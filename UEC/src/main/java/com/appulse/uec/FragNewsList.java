@@ -121,6 +121,7 @@ public final class FragNewsList extends Fragment {
             }
         });
 */
+        db.close();
         return view;
     }
 
@@ -177,6 +178,7 @@ public final class FragNewsList extends Fragment {
                 //  adapter = new ArrayAdapter<String>(getActivity(),
                 //  android.R.layout.simple_list_item_1, mListItems);
                 mListView.setAdapter(adapter);
+                db.close();
 
 
             } catch (JSONException e) {
