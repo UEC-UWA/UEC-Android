@@ -1,6 +1,8 @@
 package com.appulse.uec;
 
 import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
@@ -104,6 +106,13 @@ public class MainActivity extends ActionBarActivity
             }
         // Do it on Application start
         }
+
+
+        if (isFirstLaunch()) {
+            Intent intent = new Intent(getApplicationContext(), com.appulse.uec.FirstLaunch.class);
+            startActivity(intent);
+        }
+
     }
 
     @Override
@@ -384,23 +393,21 @@ public class MainActivity extends ActionBarActivity
     }
 
     @Override
-    public void onMapButtonSelected() {
+    public void onMapButtonSelected(String value) {
+
+        Fragment map = new FragEventMap();
+
+        Bundle args = new Bundle();
+        args.putString("address", value);
+        map.setArguments(args);
+
         addFragmentToStack(new FragEventMap());
     }
 
     public boolean isFirstLaunch() {
-       return true;
-        //SharedPreferences settings = getSharedPreferences(PREFS_NAME, 0);
-       // return settings.getBoolean("isOpComplete", false);
+        SharedPreferences settings = getSharedPreferences(PREFS_NAME, 0);
+      return (settings.getBoolean("my_first_time", true));
     }
 
 
-    /*
-
-    mMapFragment = MapFragment.newInstance();
- FragmentTransaction fragmentTransaction =
-         getFragmentManager().beginTransaction();
- fragmentTransaction.add(R.id.my_container, mMapFragment);
- fragmentTransaction.commit();
-     */
 }

@@ -79,15 +79,7 @@ public final class FragNewsList extends Fragment {
         Resources res = getResources();
         column = res.getStringArray(R.array.news_entity);
 
-        //  db.deleteAllForEntity(ENTITY_NAME);
         mListItems = db.getAllForEntity(ENTITY_NAME, column);
-       // mListItems.add(0, new SearchRow());
-        // ActionBar actionBar = getActivity().getActionBar();
-
-        //actionBar.setDisplayOptions(ActionBar.DISPLAY_SHOW_HOME
-        //  | ActionBar.DISPLAY_SHOW_TITLE | ActionBar.DISPLAY_SHOW_CUSTOM);
-
-        //inputSearch = (EditText) view.findViewById(R.id.inputSearch);
 
         mListView = (ListView) view.findViewById(R.id.listView);
         adapter = new NewsAdapter(inflater.getContext(), mListItems);
@@ -158,7 +150,7 @@ public final class FragNewsList extends Fragment {
             try {
 
                 MySQLHelper db = new MySQLHelper(getActivity());
-
+                db.deleteAllForEntity(ENTITY_NAME);
                 for (int i = 0; i < jsonPosts.length(); i++) {
                     ManagedEntity item = new ManagedEntity("News");
 

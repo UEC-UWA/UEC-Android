@@ -152,6 +152,7 @@ public final class FragTorques extends Fragment {
 
                 MySQLHelper db = new MySQLHelper(getActivity());
 
+
                 for (int i = 0; i < jsonPosts.length(); i++) {
                     ManagedEntity item = new ManagedEntity("Torques");
 

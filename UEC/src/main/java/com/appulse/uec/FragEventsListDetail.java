@@ -87,15 +87,11 @@ public class FragEventsListDetail extends Fragment {
 
         imageLoader =  ImageLoader.getInstance();
         imageLoader.displayImage((String) event.getValue("photo_path"), image);
-        //image.setTag(event.getValue("photo_path"));
-       // DownloadImagesTask task = new DownloadImagesTask();
-       // task.execute(image);
-
 
         Button eventMap = (Button) view.findViewById(R.id.buttonMap);
         eventMap.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                listener.onMapButtonSelected();
+                listener.onMapButtonSelected((String) event.getValue("address"));
             }
         });
         db.close();
@@ -104,7 +100,7 @@ public class FragEventsListDetail extends Fragment {
     }
 
     public interface onEventMapListener {
-        public void onMapButtonSelected();
+        public void onMapButtonSelected(String address);
 
     }
 

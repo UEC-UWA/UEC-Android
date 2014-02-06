@@ -178,13 +178,14 @@ public final class FragAbout extends Fragment {
 
                 List list = db.getAllForEntity(ENTITY_NAME, column);
 
-                String items[];
+                String items[] = null;
                 if (list == null) {
                     items = new String[0];
                 } else {
                     items = new String[list.size()];
                     for (int i = 0; i < list.size(); i++) {
-                        ManagedEntity result = (ManagedEntity) mListItems.get(i);
+
+                        ManagedEntity result = (ManagedEntity) list.get(i);
                         items[i] = (String) result.getValue("name");
                     }
                     adapter = new ArrayAdapter(getActivity(), android.R.layout.simple_list_item_1, items);
@@ -221,6 +222,7 @@ public final class FragAbout extends Fragment {
                 } catch (JSONException e) {
                     cancelMenuLoader();
                 }
+
                 handleResponse(result);
             }
         });

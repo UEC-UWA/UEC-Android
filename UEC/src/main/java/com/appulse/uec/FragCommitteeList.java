@@ -103,6 +103,8 @@ public class FragCommitteeList extends Fragment {
 
                 MySQLHelper db = new MySQLHelper(getActivity());
 
+                db.deleteAllForEntity(ENTITY_NAME);
+
                 for (int i = 0; i < jsonPosts.length(); i++) {
                     ManagedEntity item = new ManagedEntity("Committee");
 
