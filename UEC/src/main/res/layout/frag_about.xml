@@ -29,7 +29,7 @@
     <TextView
         android:layout_width="149dp"
         android:layout_height="wrap_content"
-        android:text="Sponsers"
+        android:text=""
         android:id="@+id/textView"
         android:layout_weight="0.06"
         android:layout_above="@+id/listView"

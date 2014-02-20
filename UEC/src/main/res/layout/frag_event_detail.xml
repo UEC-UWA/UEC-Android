@@ -110,23 +110,23 @@
         android:layout_below="@id/labelEventInfo"
         />
 
-    <Button
-        android:id="@+id/buttonMap"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:text="Show In Map"
-        android:layout_marginTop="50dp"
-        android:layout_marginBottom="50dp"
-        android:layout_below="@+id/eventContent"
-        android:layout_centerHorizontal="true" />
+    <!--<Button-->
+        <!--android:id="@+id/buttonMap"-->
+        <!--android:layout_width="fill_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:text="Show In Map"-->
+        <!--android:layout_marginTop="50dp"-->
+        <!--android:layout_marginBottom="50dp"-->
+        <!--android:layout_below="@+id/eventContent"-->
+        <!--android:layout_centerHorizontal="true" />-->
 
-    <Button
-        android:id="@+id/buttonFacebook"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:text="Facebook Event"
-        android:layout_below="@+id/buttonMap"
-        android:layout_marginBottom="22dp"
+    <!--<Button-->
+        <!--android:id="@+id/buttonFacebook"-->
+        <!--android:layout_width="fill_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:text="Facebook Event"-->
+        <!--android:layout_below="@+id/buttonMap"-->
+        <!--android:layout_marginBottom="22dp"-->
 
          />
 

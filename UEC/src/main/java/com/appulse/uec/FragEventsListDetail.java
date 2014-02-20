@@ -88,12 +88,12 @@ public class FragEventsListDetail extends Fragment {
         imageLoader =  ImageLoader.getInstance();
         imageLoader.displayImage((String) event.getValue("photo_path"), image);
 
-        Button eventMap = (Button) view.findViewById(R.id.buttonMap);
-        eventMap.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                listener.onMapButtonSelected((String) event.getValue("address"));
-            }
-        });
+//        Button eventMap = (Button) view.findViewById(R.id.buttonMap);
+//        eventMap.setOnClickListener(new View.OnClickListener() {
+//            public void onClick(View v) {
+//                listener.onMapButtonSelected((String) event.getValue("address"));
+//            }
+//        });
         db.close();
 
         return view;

@@ -5,19 +5,24 @@
     android:minHeight="50dp"
     android:orientation="horizontal" >
     <TextView
-        style="@style/SubtitleFont"
         android:id="@+id/title"
-        android:paddingLeft="5dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingRight="5dp"
         android:paddingTop="5dp"
         android:text=""
         android:textStyle="bold"
         android:typeface="sans"
         android:layout_alignParentTop="true" />
     <TextView
-        style="@style/ItalicsSubtitleFont"
         android:id="@+id/category"
-        android:paddingLeft="5dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingRight="5dp"
         android:paddingTop="5dp"
+        android:text=""
+        android:textStyle="italic"
+        android:typeface="sans"
         android:layout_alignParentLeft="true"
         android:layout_below="@id/title"
         />
