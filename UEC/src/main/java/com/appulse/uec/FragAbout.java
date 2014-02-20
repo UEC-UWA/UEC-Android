@@ -113,12 +113,12 @@ public final class FragAbout extends Fragment {
             }
         });
 
-        Button aboutUEC = (Button) view.findViewById(R.id.AboutUECButton);
-        aboutUEC.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                listener.onAboutAppSelected();
-            }
-        });
+//        Button aboutUEC = (Button) view.findViewById(R.id.AboutUECButton);
+//        aboutUEC.setOnClickListener(new View.OnClickListener() {
+//            public void onClick(View v) {
+//                listener.onAboutAppSelected();
+//            }
+//        });
 
         Button aboutApp = (Button) view.findViewById(R.id.AboutAppButton);
         aboutApp.setOnClickListener(new View.OnClickListener() {

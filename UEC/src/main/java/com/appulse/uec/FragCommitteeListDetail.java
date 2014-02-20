@@ -13,7 +13,8 @@ import android.widget.TextView;
 import com.appulse.uec.helpers.ManagedEntity;
 import com.appulse.uec.helpers.MySQLHelper;
 import com.nostra13.universalimageloader.core.ImageLoader;
-
+import android.text.Html;
+import android.text.method.LinkMovementMethod;
 /**
  * Created by Matt on 27/01/2014.
  */
@@ -47,7 +48,9 @@ public class FragCommitteeListDetail extends Fragment {
         memberPosition.setText((String) committeeMember.getValue("subcommittee"));
 
         TextView memberEmail = (TextView) view.findViewById(R.id.memberEmail);
-        memberEmail.setText((String) committeeMember.getValue("email"));
+        String email = (String)committeeMember.getValue("email");
+        memberEmail.setText(Html.fromHtml("<a href=\"mailto:" + email + "\">" + email + "</a>"));
+        memberEmail.setMovementMethod(LinkMovementMethod.getInstance());
 
         TextView memberTitle = (TextView) view.findViewById(R.id.memberTitle);
         memberTitle.setText((String) committeeMember.getValue("position"));

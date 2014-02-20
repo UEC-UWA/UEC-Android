@@ -8,7 +8,6 @@
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="Wecome to the Android UEC App"
         android:id="@+id/textView"
-
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
     <TextView
@@ -20,8 +19,8 @@
         android:layout_below="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="This is the Android alpha release of the UEC app.
-Obviously this is not the final version, and quite a few things will change depending on your feedback. You can send me some feedback by going to the "/>
+        android:text="This is the Android beta release of the UEC app. This is not the final version.
+        Feel free to press the button above to send feedback."/>
 
 
 </RelativeLayout>

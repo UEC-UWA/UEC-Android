@@ -45,7 +45,7 @@
     <TextView
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:text="This app is obviously not 100% complete yet. We need to do some tuning. Let me the the changes which need doing"
+        android:text="This is the Android beta release of the UEC app. Feedback would be much appreciated"
         android:id="@+id/labelFeedbackInfo"
         android:layout_centerVertical="true"
         android:layout_below="@+id/feedbackButton"/>
