@@ -70,7 +70,6 @@ private Button b;
             column = res.getStringArray(R.array.events_entity);
             get_json(column, "Events","event");
         } else if (entityPulled == 3) {
-
             column = res.getStringArray(R.array.news_entity);
             get_json(column, "News","newsarticle");
         } else if (entityPulled == 4) {
@@ -93,7 +92,7 @@ private Button b;
     public void get_json(final String[] column, final String entity, final String postFix) {
         AsyncHttpClient client = new AsyncHttpClient();
 
-        client.get("http://www.appulse.com.au/uec/app_scripts.php?script=" + postFix, new AsyncHttpResponseHandler() {
+        client.get("http://uec.org.au/app_scripts/?script=" + postFix, new AsyncHttpResponseHandler() {
             @Override
             public void onSuccess(String response) {
                 JSONArray result = null;

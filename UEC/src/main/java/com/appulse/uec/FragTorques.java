@@ -14,6 +14,14 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.app.*;
+import android.content.pm.ResolveInfo;
+import android.content.pm.PackageManager;
+import android.os.Build;
+import android.content.Context;
+import android.os.Environment;
+import android.net.Uri;
+import android.content.Intent;
 
 import com.appulse.uec.helpers.ManagedEntity;
 import com.appulse.uec.helpers.MySQLHelper;
@@ -208,12 +216,14 @@ public final class FragTorques extends Fragment {
     public void get_json() {
         AsyncHttpClient client = new AsyncHttpClient();
 
-        client.get("http://www.appulse.com.au/uec/app_scripts.php?script=torque", new AsyncHttpResponseHandler() {
+        client.get("http://uec.org.au/app_scripts/?script=torque", new AsyncHttpResponseHandler() {
             @Override
             public void onSuccess(String response) {
                 JSONArray result = null;
+                System.out.println(response);
                 try {
                     result = new JSONArray(response);
+                    System.out.println(result.toString());
                 } catch (JSONException e) {
                     cancelMenuLoader();
                 }
@@ -227,4 +237,41 @@ public final class FragTorques extends Fragment {
             MenuItemCompat.setActionView(mItem,null);
         }
     }
+
+//    private void downloadItems() {
+//        String url = "url you want to download";
+//        DownloadManager.Request request = new DownloadManager.Request(Uri.parse(url));
+//        request.setDescription("Some descrition");
+//        request.setTitle("Some title");
+//// in order for this if to run, you must use the android 3.2 to compile your app
+//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
+//            request.allowScanningByMediaScanner();
+//            request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
+//        }
+//        request.setDestinationInExternalPublicDir(Environment.DIRECTORY_DOWNLOADS, "name-of-the-file.ext");
+//
+//// get download service and enqueue file
+//        DownloadManager manager = (DownloadManager)getSystemService(Context.DOWNLOAD_SERVICE);
+//        manager.enqueue(request);
+//    }
+//
+//    /**
+//     * @param context used to check the device version and DownloadManager information
+//     * @return true if the download manager is available
+//     */
+//    public static boolean isDownloadManagerAvailable(Context context) {
+//        try {
+//            if (Build.VERSION.SDK_INT < Build.VERSION_CODES.GINGERBREAD) {
+//                return false;
+//            }
+//            Intent intent = new Intent(Intent.ACTION_MAIN);
+//            intent.addCategory(Intent.CATEGORY_LAUNCHER);
+//            intent.setClassName("com.android.providers.downloads.ui", "com.android.providers.downloads.ui.DownloadList");
+//            List<ResolveInfo> list = context.getPackageManager().queryIntentActivities(intent,
+//                    PackageManager.MATCH_DEFAULT_ONLY);
+//            return list.size() > 0;
+//        } catch (Exception e) {
+//            return false;
+//        }
+//    }
 }

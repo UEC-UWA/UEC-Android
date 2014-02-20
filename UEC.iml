@@ -30,10 +30,10 @@
       <sourceFolder url="file://$MODULE_DIR$/UEC/build/source/buildConfig/debug" isTestSource="false" generated="true" />
       <sourceFolder url="file://$MODULE_DIR$/UEC/build/source/rs/debug" isTestSource="false" generated="true" />
       <sourceFolder url="file://$MODULE_DIR$/UEC/build/res/rs/debug" type="java-resource" />
-      <sourceFolder url="file://$MODULE_DIR$/UEC/build/source/r/test/debug" isTestSource="true" />
-      <sourceFolder url="file://$MODULE_DIR$/UEC/build/source/aidl/test/debug" isTestSource="true" />
-      <sourceFolder url="file://$MODULE_DIR$/UEC/build/source/buildConfig/test/debug" isTestSource="true" />
-      <sourceFolder url="file://$MODULE_DIR$/UEC/build/source/rs/test/debug" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/UEC/build/source/r/test/debug" isTestSource="true" generated="true" />
+      <sourceFolder url="file://$MODULE_DIR$/UEC/build/source/aidl/test/debug" isTestSource="true" generated="true" />
+      <sourceFolder url="file://$MODULE_DIR$/UEC/build/source/buildConfig/test/debug" isTestSource="true" generated="true" />
+      <sourceFolder url="file://$MODULE_DIR$/UEC/build/source/rs/test/debug" isTestSource="true" generated="true" />
       <sourceFolder url="file://$MODULE_DIR$/UEC/build/res/rs/test/debug" type="java-test-resource" />
       <sourceFolder url="file://$MODULE_DIR$/UEC/src/debug/aidl" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/UEC/src/debug/assets" isTestSource="false" />
@@ -71,10 +71,10 @@
     <orderEntry type="jdk" jdkName="Android API 19 Platform" jdkType="Android SDK" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" exported="" name="android-async-http-1.4.4" level="project" />
-    <orderEntry type="library" exported="" name="ComGoogleAndroidGmsPlayServices3136.aar" level="project" />
-    <orderEntry type="library" exported="" name="support-v4-19.0.0" level="project" />
+    <orderEntry type="library" exported="" name="appcompat-v7-19.0.1" level="project" />
+    <orderEntry type="library" exported="" name="play-services-3.1.36" level="project" />
+    <orderEntry type="library" exported="" name="support-v4-19.0.1" level="project" />
     <orderEntry type="library" exported="" name="universal-image-loader-1.9.1" level="project" />
-    <orderEntry type="library" exported="" name="ComAndroidSupportAppcompatV71900.aar" level="project" />
   </component>
 </module>
 

@@ -21,7 +21,8 @@ import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 
 public class MainActivity extends ActionBarActivity
-        implements NavigationDrawerFragment.NavigationDrawerCallbacks, FragNewsList.onNewsItemSelectedListener, FragAbout.onAboutListener,
+        implements NavigationDrawerFragment.NavigationDrawerCallbacks,
+        FragNewsList.onNewsItemSelectedListener, FragAbout.onAboutListener,
         FragEventList.onEventsItemSelectedListener,
         FragTorques.onTorquesListener,
         FragCommitteeList.onCommitteeItemSelectedListener,
@@ -135,13 +136,13 @@ public class MainActivity extends ActionBarActivity
 
     public String getTitle(int position) {
         if (position == 1) {
-            return "About";
-        } else if (position == 2) {
             return "Calendar";
-        } else if (position == 3) {
+        } else if (position == 2) {
             return "Committee";
-        } else if (position == 4) {
+        } else if (position == 3) {
             return "Torques";
+        } else if (position == 4) {
+            return "About";
         } else {
             return "News";
         }
@@ -149,13 +150,14 @@ public class MainActivity extends ActionBarActivity
 
     public Fragment getFragment(int position) {
         if (position == 1) {
-            return new FragAbout();
-        } else if (position == 2) {
             return new FragEventList();
-        } else if (position == 3) {
+        } else if (position == 2) {
             return new FragCommitteeList();
-        } else if (position == 4) {
+        } else if (position == 3) {
             return new FragTorques();
+        } else if (position == 4) {
+            return new FragAbout();
+
         } else {
             return new FragNewsList();
         }
@@ -245,18 +247,17 @@ public class MainActivity extends ActionBarActivity
                 menuItemRefresh = MenuItemCompat.setActionView(menuItemRefresh, R.layout.progressbar);
 
                 if (currentPosition == 1) {
-                    FragAbout fragmentToUpdate = (FragAbout) currentFragment;
-                    if (fragmentToUpdate != null)fragmentToUpdate.updateList(item);
-                } else if (currentPosition == 2) {
                     FragEventList fragmentToUpdate = (FragEventList) currentFragment;
                     if (fragmentToUpdate != null) fragmentToUpdate.updateList(item);
-                } else if (currentPosition == 3) {
+                } else if (currentPosition == 2) {
                     FragCommitteeList fragmentToUpdate = (FragCommitteeList) currentFragment;
                     if (fragmentToUpdate != null)fragmentToUpdate.updateList(item);
-                } else if (currentPosition == 4) {
+                } else if (currentPosition == 3) {
                     FragTorques fragmentToUpdate = (FragTorques) currentFragment;
-
                     if (fragmentToUpdate != null)  fragmentToUpdate.updateList(item);
+                } else if (currentPosition == 4) {
+                    FragAbout fragmentToUpdate = (FragAbout) currentFragment;
+                    if (fragmentToUpdate != null)fragmentToUpdate.updateList(item);
                 } else {
                    FragNewsList fragmentToUpdate = (FragNewsList) currentFragment;
                     if (fragmentToUpdate != null) fragmentToUpdate.updateList(item);

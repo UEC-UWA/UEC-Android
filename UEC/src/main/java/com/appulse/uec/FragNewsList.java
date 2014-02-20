@@ -79,7 +79,7 @@ public final class FragNewsList extends Fragment {
         Resources res = getResources();
         column = res.getStringArray(R.array.news_entity);
 
-        mListItems = db.getAllForEntity(ENTITY_NAME, column);
+        mListItems = db.getAllForEntity(ENTITY_NAME, column, "date", false);
 
         mListView = (ListView) view.findViewById(R.id.listView);
         adapter = new NewsAdapter(inflater.getContext(), mListItems);
@@ -116,7 +116,6 @@ public final class FragNewsList extends Fragment {
         db.close();
         return view;
     }
-
 
     public void updateList(MenuItem item) {
         mItem = item;
@@ -203,7 +202,7 @@ public final class FragNewsList extends Fragment {
     public void get_json() {
         AsyncHttpClient client = new AsyncHttpClient();
 
-        client.get("http://www.appulse.com.au/uec/app_scripts.php?script=newsarticle", new AsyncHttpResponseHandler() {
+        client.get("http://uec.org.au/app_scripts/?script=newsarticle", new AsyncHttpResponseHandler() {
             @Override
             public void onSuccess(String response) {
                 JSONArray result = null;

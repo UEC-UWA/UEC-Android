@@ -122,12 +122,6 @@ public class NavigationDrawerFragment extends Fragment {
         m.image = this.getResources().getIdentifier("newspaper", "drawable", getActivity().getPackageName());
         listData.add(m);
 
-        NavMenuItem m1 = new NavMenuItem();
-        m1.title = "About";
-        m1.image = this.getResources().getIdentifier("about", "drawable", getActivity().getPackageName());
-
-        listData.add(m1);
-
         NavMenuItem m2 = new NavMenuItem();
         m2.title = "Calendar";
         m2.image = this.getResources().getIdentifier("calendar", "drawable", getActivity().getPackageName());
@@ -143,6 +137,11 @@ public class NavigationDrawerFragment extends Fragment {
         m4.image = this.getResources().getIdentifier("book", "drawable", getActivity().getPackageName());
         listData.add(m4);
 
+        NavMenuItem m1 = new NavMenuItem();
+        m1.title = "About";
+        m1.image = this.getResources().getIdentifier("about", "drawable", getActivity().getPackageName());
+
+        listData.add(m1);
 
         ListAdapter adapter = new NavigationAdapter(inflater.getContext(), listData);
 

@@ -213,7 +213,7 @@ public final class FragAbout extends Fragment {
     public void get_json() {
         AsyncHttpClient client = new AsyncHttpClient();
 
-        client.get("http://www.appulse.com.au/uec/app_scripts.php?script=sponsor", new AsyncHttpResponseHandler() {
+        client.get("http://uec.org.au/app_scripts/?script=sponsor", new AsyncHttpResponseHandler() {
             @Override
             public void onSuccess(String response) {
                 JSONArray result = null;

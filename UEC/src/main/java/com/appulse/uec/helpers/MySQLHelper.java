@@ -229,11 +229,22 @@ public class MySQLHelper extends SQLiteOpenHelper {
     }
 
     public List<ManagedEntity> getAllForEntity(String entity, String[] columns) {
+         return getAllForEntity(entity, columns, "", false);
+    }
+
+    public List<ManagedEntity> getAllForEntity(String entity, String[] columns, String orderKey, boolean ascending) {
         List<ManagedEntity> list = new LinkedList<ManagedEntity>();
 
         // 1. build the query
         String columnList = arrayToCommaList(columns);
-        String query = "SELECT " + columnList + " FROM " + entity;
+        String query = null;
+
+        if(orderKey == "" || orderKey == null) {
+            query = "SELECT " + columnList + " FROM " + entity;
+        }
+        else {
+            query = "SELECT " + columnList + " FROM " +  entity + " ORDER BY " + orderKey + ((ascending) ? " ASC " : " DESC ");
+        }
 
         // 2. get reference to writable DB
         SQLiteDatabase db = this.getWritableDatabase();
@@ -242,18 +253,13 @@ public class MySQLHelper extends SQLiteOpenHelper {
         if (cursor.moveToFirst()) {
             do {
                 ManagedEntity results = null;
-
                 results = new ManagedEntity(entity);
                 results.setId(Integer.parseInt(cursor.getString(0)));
                 int num_columns = columns.length;
                 // Log.e("MysqlHelper","Cursor " + cursor.get);
                 for (int i = 1; i < num_columns; i++) {
-
                     results.setValue(columns[i], cursor.getString(i));
-
-
                 }
-
                 // Add book to books
                 list.add(results);
 
