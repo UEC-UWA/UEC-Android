@@ -58,11 +58,6 @@ public class MySQLHelper extends SQLiteOpenHelper {
                 "end_date DATETIME, " +
                 "name TEXT, " +
                 "type TEXT, " +
-                "start_sale DATETIME, " +
-                "end_sale DATETIME," +
-                "tickets_left INTEGER, " +
-                "total_tickets INTEGER," +
-                "extended_sale TEXT," +
                 "address TEXT, " +
                 "event_description TEXT," +
                 "facebook_link TEXT," +

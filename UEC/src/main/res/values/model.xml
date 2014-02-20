@@ -25,11 +25,6 @@
         <item>end_date</item>
         <item>name</item>
         <item>type</item>
-        <item>start_sale</item>
-        <item>end_sale</item>
-        <item>tickets_left</item>
-        <item>total_tickets</item>
-        <item>extended_sale</item>
         <item>address</item>
         <item>event_description</item>
         <item>facebook_link</item>
