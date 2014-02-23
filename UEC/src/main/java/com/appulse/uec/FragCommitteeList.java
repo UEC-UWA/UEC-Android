@@ -55,7 +55,7 @@ public class FragCommitteeList extends Fragment {
         column = res.getStringArray(R.array.committee_entity);
 
         MySQLHelper db = new MySQLHelper(getActivity());
-        mListItems = db.getAllForEntityWithSections(ENTITY_NAME, column, "subcommittee");
+        mListItems = db.getAllForEntityWithSections(ENTITY_NAME, column, "subcommittee", true);
         adapter = new CommitteeAdapter(inflater.getContext(), mListItems);
         listView.setAdapter(adapter);
 
@@ -126,7 +126,7 @@ public class FragCommitteeList extends Fragment {
 
                 }
 
-                List list = db.getAllForEntityWithSections(ENTITY_NAME, column, "subcommittee");
+                List list = db.getAllForEntityWithSections(ENTITY_NAME, column, "subcommittee", true);
                 adapter = new CommitteeAdapter(getActivity(), list);
                 //  adapter = new ArrayAdapter<String>(getActivity(),
                 //  android.R.layout.simple_list_item_1, mListItems);

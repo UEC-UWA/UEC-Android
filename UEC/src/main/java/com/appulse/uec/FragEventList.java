@@ -78,7 +78,7 @@ public final class FragEventList extends Fragment {
         Resources res = getResources();
         column = res.getStringArray(R.array.events_entity);
 
-        mListItems = db.getAllForEntityWithSections(ENTITY_NAME, column, "start_date");
+        mListItems = db.getAllForEntityWithSections(ENTITY_NAME, column, "start_date", false);
 
         mListView = (ListView) view.findViewById(R.id.eventsListView);
         adapter = new EventsAdapter(inflater.getContext(), mListItems);
@@ -171,7 +171,7 @@ public final class FragEventList extends Fragment {
 
                 }
 
-                List list = db.getAllForEntityWithSections(ENTITY_NAME, column, "start_date");
+                List list = db.getAllForEntityWithSections(ENTITY_NAME, column, "start_date", false);
 
                 adapter = new EventsAdapter(getActivity(), list);
                 mListView.setAdapter(adapter);

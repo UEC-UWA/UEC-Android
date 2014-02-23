@@ -58,6 +58,11 @@ public class MySQLHelper extends SQLiteOpenHelper {
                 "end_date DATETIME, " +
                 "name TEXT, " +
                 "type TEXT, " +
+                "start_sale DATETIME, " +
+                "end_sale DATETIME," +
+                "tickets_left INTEGER, " +
+                "total_tickets INTEGER," +
+                "extended_sale TEXT," +
                 "address TEXT, " +
                 "event_description TEXT," +
                 "facebook_link TEXT," +
@@ -172,12 +177,12 @@ public class MySQLHelper extends SQLiteOpenHelper {
         return result.length() > 0 ? result.substring(0, result.length() - 1) : "";
     }
 
-    public List<Object> getAllForEntityWithSections(String entity, String[] columns, String section) {
+    public List<Object> getAllForEntityWithSections(String entity, String[] columns, String section, boolean ascending) {
         List<Object> list = new LinkedList<Object>();
 
         // 1. build the query
         String columnList = arrayToCommaList(columns);
-        String query = "SELECT " + columnList + " FROM " + entity + " ORDER BY " + section;
+        String query = "SELECT " + columnList + " FROM " + entity + " ORDER BY " + section + ((ascending) ? " ASC " : " DESC ");
 
         // 2. get reference to writable DB
         SQLiteDatabase db = this.getWritableDatabase();
